@@ -93,7 +93,8 @@ info "Building and uploading $src to https://$domain/~/$dir/ (takes a few minute
   # pngquant-bin has no prebuilt arm64 musl binary, so npm ci compiles it from source
   apk add --no-cache pngquant build-base libpng-dev zlib-dev python3 >/dev/null
   echo \"  installing build tools (npm ci, up to a few minutes on a Pi)\"
-  npm ci --no-audit --no-fund --loglevel=error --ignore-scripts
+  npm ci --no-audit --no-fund --loglevel=error || true
+  rm -rf node_modules/pngquant-bin
   npm run build
   echo \"  building and uploading\"
   npm run upload
