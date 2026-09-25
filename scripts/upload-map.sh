@@ -70,7 +70,7 @@ if [[ -d $src && ! -f $src/package.json ]]; then
   done
   args+=(-v "$(cd "$src" && pwd):/overlay:ro" -e "DOMAIN=$domain" -e "WAMS=$wams" -e "REPO=$STARTER_KIT_REPO" -e "TAG=$STARTER_KIT_TAG")
   # shellcheck disable=SC2016  # expanded inside the container
-  fetch='apk add --no-cache git >/dev/null && git clone -q --depth 1 --branch "$TAG" "$REPO" /map
+  fetch='apk add --no-cache git >/dev/null && echo "  fetching the starter kit $TAG" && git -c advice.detachedHead=false clone -q --depth 1 --branch "$TAG" "$REPO" /map
     rm -f /map/*.tmj /map/office.png /map/conference.png
     cp /overlay/*.tmj /map/
     if [ -d /overlay/tilesets ]; then cp /overlay/tilesets/* /map/tilesets/; fi
@@ -90,7 +90,11 @@ info "Building and uploading $src to https://$domain/~/$dir/ (takes a few minute
   $fetch
   cd /map
   rm -f .env.secret
+  # pngquant-bin has no prebuilt arm64 musl binary, so npm ci compiles it from source
+  apk add --no-cache build-base libpng-dev >/dev/null
+  echo \"  installing build tools (npm ci, up to a few minutes on a Pi)\"
   npm ci --no-audit --no-fund --loglevel=error
+  echo \"  building and uploading\"
   npm run upload
 "
 
