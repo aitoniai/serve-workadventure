@@ -417,6 +417,9 @@ def layout(m):
     for x, y in ((px - 2, py - 1), (px + POOL_COLS + 1, py - 1), (px - 2, py + POOL_ROWS), (px + POOL_COLS + 1, py + POOL_ROWS)):
         m.put(STOOL_WOOD, x, y, collide="none")
     plant(PLANT_PALM, 21, 14)
+    # Spawn: the free floor between the pool corner and the lounge, in the middle of the building. Keep it out of
+    # the megaphone audience (no proximity video there) and out of the pool's SPACE-to-play area.
+    m.fill("start", 22, 17, 23, 20, START)
     m.fill("floor1", 24, 16, 31, 22, RUG)
     m.put(SOFA_BEIGE, 25, 16)
     m.put(TABLE_BIG, 25, 19); deco(FLOWERS_YELLOW, 26, 20)
@@ -446,7 +449,6 @@ def layout(m):
     m.put(SOFA_BLUE, 25, 31)
     plant(PLANT_PALM, 15, 30)
     m.put(FLOWERS_YELLOW, 28, 32, collide="all")
-    m.fill("start", 20, 31, 22, 32, START)
 
     # Games area: screen with poufs and sofa, board-game table, game tables, balloons.
     wall(SCREEN, 35, 25); wall(WORLD_MAP, 40, 25); wall(PAINT_CITY, 31, 25)
