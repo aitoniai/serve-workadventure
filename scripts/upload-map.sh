@@ -87,11 +87,11 @@ fi
 
 info "Building and uploading $src to https://$domain/~/$dir/ (takes a few minutes on a Pi)"
 "${DOCKER[@]}" run "${args[@]}" node:22-alpine sh -euc "
-  $fetch
+    $fetch
   cd /map
   rm -f .env.secret
   # pngquant-bin has no prebuilt arm64 musl binary, so npm ci compiles it from source
-  apk add --no-cache build-base libpng-dev >/dev/null
+  apk add --no-cache build-base libpng-dev zlib-dev python3 >/dev/null
   echo \"  installing build tools (npm ci, up to a few minutes on a Pi)\"
   npm ci --no-audit --no-fund --loglevel=error
   echo \"  building and uploading\"
