@@ -87,15 +87,17 @@ fi
 
 info "Building and uploading $src to https://$domain/~/$dir/ (takes a few minutes on a Pi)"
 "${DOCKER[@]}" run "${args[@]}" node:22-alpine sh -euc "
-    $fetch
+  $fetch
   cd /map
   rm -f .env.secret
-  # pngquant-bin has no prebuilt arm64 musl binary, so npm ci compiles it from source
-  apk add --no-cache pngquant build-base libpng-dev zlib-dev python3 >/dev/null
+  # pngquant-bin has no prebuilt arm64 binary and compiling it on musl is fragile, so give it
+  # Alpine's pngquant before its install script runs (that script then only checks --version)
+  apk add --no-cache pngquant >/dev/null
   echo \"  installing build tools (npm ci, up to a few minutes on a Pi)\"
-  npm ci --no-audit --no-fund --loglevel=error || true
-  rm -rf node_modules/pngquant-bin
-  npm run build
+  npm ci --no-audit --no-fund --loglevel=error --ignore-scripts
+  mkdir -p node_modules/pngquant-bin/vendor
+  ln -sf /usr/bin/pngquant node_modules/pngquant-bin/vendor/pngquant
+  npm rebuild --loglevel=error
   echo \"  building and uploading\"
   npm run upload
 "
