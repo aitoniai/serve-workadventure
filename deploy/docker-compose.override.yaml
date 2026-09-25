@@ -104,8 +104,13 @@ services:
     command:
       - -n
       - --listening-port=3478
+      # Relay only on the LAN address. Otherwise coturn also relays on the Docker bridges and ::1, and
+      # those relayed candidates (advertised as TURN_EXTERNAL_IP) are unreachable.
+      - --relay-ip=${LAN_IP}
+      # One port per allocation, and each browser allocates per peer connection and per transport.
+      # 41 ports ran out with a handful of people ("create_relay_ioa_sockets: no available ports").
       - --min-port=49160
-      - --max-port=49200
+      - --max-port=49999
       - --use-auth-secret
       - --static-auth-secret=${TURN_STATIC_AUTH_SECRET}
       - --realm=${DOMAIN}

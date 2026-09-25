@@ -58,7 +58,7 @@ Open these on your router if people join from outside your network:
 |---|---|
 | TCP 80, 443 | web (80 for Let's Encrypt and the redirect to https) |
 | TCP 7881, UDP 7882 | meetings (LiveKit) |
-| TCP+UDP 3478, UDP 49160–49200 | TURN relay for proximity video |
+| TCP+UDP 3478, UDP 49160–49999 | TURN relay for proximity video |
 | TCP 50051 | Room API (optional) |
 
 ## Everyday use

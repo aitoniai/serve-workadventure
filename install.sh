@@ -210,7 +210,7 @@ cat <<MSG
 Ports to open on your router/firewall for people outside your network:
    TCP 80, 443                   web (80 is only for Let's Encrypt and the redirect)
    TCP 7881, UDP 7882            meetings (LiveKit)
-   TCP/UDP 3478, UDP 49160-49200 TURN relay for proximity video
+   TCP/UDP 3478, UDP 49160-49999 TURN relay for proximity video
    TCP 50051                     Room API (optional, for scripts/integrations)
 
 Users:   bin/wa-user add <email> [--editor] | list | passwd | delete | editor <email> on|off
