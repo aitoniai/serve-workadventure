@@ -82,7 +82,7 @@ confirms that kind of request with a consent click. The chat then signs in autom
 
 ### Maps
 
-The start room is `maps/office`: an 84×46 office with a garden, built from the official starter kit's art (plus a
+The start room is `maps/office`: a 60×34 office with a garden, built from the official starter kit's art (plus a
 pool table drawn by `generate.py`).
 
 ![Office map](maps/office/preview.png)
@@ -90,10 +90,10 @@ pool table drawn by `generate.py`).
 | Area | What's there |
 |---|---|
 | Reception (start) | WorkAdventure logo, reception desk, lounge sofas, plants and art. The **Stage** in front of the desk is an all-hands megaphone: whoever speaks there is heard in reception, the open office, team desks, coffee corner, games area and garden. |
-| Coffee corner | Kitchen counter, coffee machines, five café tables with flowers |
+| Coffee corner | Kitchen counter, coffee machines, three café tables with flowers |
 | Games area | Big screen with poufs, sofa, board-game table, and three game tables: walk up and press SPACE to open **Chess** (lichess.org), **Pictionary** (skribbl.io) or **Codenames** in a new tab. These are free sites; send colleagues the game link to play together. |
-| Open office | 8 desk pods (32 desks, each a claimable personal desk), a lounge corner, and a **pool table**: press SPACE next to it to open 8-ball pool (foony.com, free, no account; "Play with Friends" gives an invite link). |
-| Team desks | 2 long desk rows (12 desks) in a **silent zone** ("Focus desks"), and a reading corner with bookshelves |
+| Open office | 4 desk pods (16 desks, each a claimable personal desk), a lounge corner, and a **pool table**: press SPACE next to it to open 8-ball pool (foony.com, free, no account; "Play with Friends" gives an invite link). |
+| Team desks | a long desk (6 desks) in a **silent zone** ("Focus desks"), and a reading corner with bookshelves |
 | Meeting rooms 1–3 | Glass table for 8 and a whiteboard, max 8 people. Everyone inside joins one video call (LiveKit). Share a link straight into a room: `https://<domain>/~/office/office.wam#meeting-room-2` |
 | Garden | Doors from team desks, the open office and the games area. Picnic tables, a flower meadow, a duck pond and a **meditation garden** (silent zone). Birdsong plays softly (public-domain recording streamed from Wikimedia Commons). |
 

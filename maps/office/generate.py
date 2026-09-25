@@ -15,7 +15,7 @@ import argparse, json, os, subprocess, sys, tempfile, uuid
 HERE = os.path.dirname(os.path.abspath(__file__))
 STARTER_KIT_REPO = "https://github.com/workadventure/map-starter-kit.git"
 STARTER_KIT_TAG = "v3.3.18"
-W, H = 84, 46                      # map size in 32px tiles (building 0-59, garden 60-83)
+W, H = 60, 34                      # map size in 32px tiles (building 0-43, garden 44-59)
 COLLIDE, START = 3, 2              # WA_Special_Zones tiles used by the starter kit
 
 # ── Floors (WA_Room_Builder) ───────────────────────────────────────────────
@@ -27,27 +27,28 @@ COBBLE, WATER = 2483, 2509
 
 # ── Rooms: name -> (x1, y1, x2, y2) inclusive floor rectangle, floor tile ──
 ROOMS = {
-    "Meeting room 1": ((1, 1, 12, 14), NAVY),
-    "Meeting room 2": ((14, 1, 25, 14), SLATE),
-    "Meeting room 3": ((27, 1, 38, 14), HONEY_WOOD),
-    "Team desks":     ((40, 1, 58, 15), WOOD),
-    "Open office":    ((1, 16, 58, 30), WOOD),
-    "Coffee corner":  ((1, 32, 19, 44), LIGHT_WOOD),
-    "Reception":      ((21, 32, 39, 44), RED_CARPET),
-    "Games area":     ((41, 32, 58, 44), PURPLE),
-    "Garden":         ((60, 0, 83, 45), GRASS),
+    "Meeting room 1": ((1, 1, 9, 11), NAVY),
+    "Meeting room 2": ((11, 1, 19, 11), SLATE),
+    "Meeting room 3": ((21, 1, 29, 11), HONEY_WOOD),
+    "Team desks":     ((31, 1, 42, 11), WOOD),
+    "Open office":    ((1, 13, 42, 23), WOOD),
+    "Coffee corner":  ((1, 25, 13, 32), LIGHT_WOOD),
+    "Reception":      ((15, 25, 28, 32), RED_CARPET),
+    "Games area":     ((30, 25, 42, 32), PURPLE),
+    "Garden":         ((44, 0, 59, 33), GRASS),
 }
+MEETING_ROOMS = (1, 11, 21)        # left x of each meeting room
 
 # ── Walls: horizontal runs (y, x1, x2) and vertical runs (x, y1, y2); gaps are doors ──
-H_WALLS = [(0, 0, 59), (45, 0, 59), (15, 0, 39), (31, 0, 59)]
-V_WALLS = [(0, 0, 45), (59, 0, 45), (13, 0, 15), (26, 0, 15), (39, 0, 15), (20, 31, 45), (40, 31, 45)]
+H_WALLS = [(0, 0, 43), (33, 0, 43), (12, 0, 43), (24, 0, 43)]
+V_WALLS = [(0, 0, 33), (43, 0, 33), (10, 0, 12), (20, 0, 12), (30, 0, 12), (14, 24, 33), (29, 24, 33)]
+GARDEN_DOORS = [(43, 5, 43, 7), (43, 17, 43, 19), (43, 28, 43, 30)]
 DOORS = [  # cells left open (x1, y1, x2, y2)
-    (6, 15, 7, 15), (19, 15, 20, 15), (32, 15, 33, 15),        # meeting room doors
-    (8, 31, 11, 31), (34, 31, 37, 31), (42, 31, 44, 31),       # coffee, reception, games from the office
-    (20, 37, 20, 41), (40, 37, 40, 41),                        # reception <-> coffee / games
-    (59, 7, 59, 9), (59, 22, 59, 24), (59, 37, 59, 39),        # out to the garden
-]
-GARDEN_DOORS = [(59, 7, 59, 9), (59, 22, 59, 24), (59, 37, 59, 39)]
+    (7, 12, 8, 12), (17, 12, 18, 12), (27, 12, 28, 12),        # meeting room doors
+    (38, 12, 40, 12),                                          # team desks
+    (5, 24, 6, 24), (26, 24, 27, 24), (33, 24, 34, 24),        # coffee, reception, games from the office
+    (14, 28, 14, 30), (29, 28, 29, 30),                        # reception <-> coffee / games
+] + GARDEN_DOORS                                               # out to the garden
 
 
 def wall_cells():
@@ -315,111 +316,90 @@ def layout(m):
     wall = lambda g, x, y: m.put(g, x, y, layer="walls2", collide="none")
     deco = lambda g, x, y: m.put(g, x, y, layer="furniture2", collide="none")   # on top of tables / floor
 
-    # Meeting rooms: each one dressed differently.
-    for i, x0 in enumerate((1, 14, 27)):
-        m.stamp(*MEETING_TABLE, x0 + 4, 5)
-        m.stamp(*WHITEBOARD, x0 + 8, 1)
-        m.stamp(*WINDOW, x0 + 1, 1)
-    # 1: navy, sunflowers and a big palm
-    wall(PAINT_SUNFLOWERS, 6, 1); wall(PAINT_LEMON, 12, 1)
-    plant(PLANT_PALM, 1, 11); plant(PLANT_FERN, 10, 12)
-    plant(PLANT_SPIKY, 1, 3)
+    # Meeting rooms: glass table on the left, whiteboard, each one dressed differently.
+    for x0 in MEETING_ROOMS:
+        m.stamp(*MEETING_TABLE, x0 + 1, 4)
+        m.stamp(*WHITEBOARD, x0 + 5, 1)
+    x1, x2, x3 = MEETING_ROOMS
+    # 1: navy, sunflowers and a palm
+    m.stamp(*WINDOW, x1, 1); wall(PAINT_SUNFLOWERS, x1 + 3, 1); wall(PAINT_LEMON, x1 + 8, 1)
+    plant(PLANT_PALM, x1 + 6, 4); plant(PLANT_FERN, x1, 10)
     # 2: slate, bird painting, tall plants
-    wall(PAINT_BIRD, 19, 1); wall(PAINT_CHERRY, 25, 1)
-    plant(PLANT_SPIKY, 14, 12); plant(PLANT_TALL, 25, 13); plant(PLANT_GRASS, 14, 3); plant(PLANT_TREE, 25, 3)
-    # 3: honey wood, library wall
-    m.put(BOOKSHELF, 30, 1); m.put(BOOKSHELF, 32, 1)
-    wall(PAINT_CITY, 38, 1)
-    plant(PLANT_PALM, 36, 11); plant(PLANT_TREE, 27, 13); plant(PLANT_BUSH, 34, 3)
+    m.stamp(*WINDOW, x2, 1); wall(PAINT_BIRD, x2 + 3, 1); wall(PAINT_CHERRY, x2 + 8, 1)
+    plant(PLANT_SPIKY, x2 + 8, 4); plant(PLANT_TALL, x2, 10); plant(PLANT_TREE, x2 + 6, 5)
+    # 3: honey wood, bookshelf
+    m.stamp(*WINDOW, x3, 1); m.put(BOOKSHELF, x3 + 2, 1); wall(PAINT_CITY, x3 + 8, 1)
+    plant(PLANT_PALM, x3 + 6, 4); plant(PLANT_TREE, x3, 10)
 
-    # Team desks (top right): two long desks, a reading lounge with bookshelves.
-    for y in (4, 10):
-        m.stamp(*LONG_DESK, 41, y)
-    m.stamp(*WINDOW, 41, 1); m.stamp(*WINDOW, 45, 1)
-    wall(PAINTING_WIDE, 48, 1); m.stamp(*CLOCK, 51, 1)
-    m.put(BOOKSHELF, 53, 1); m.put(BOOKSHELF, 55, 1); m.put(CUPBOARD, 57, 1)
-    m.fill("floor1", 50, 5, 57, 11, RUG)
-    m.put(SOFA_BLUE, 52, 6)
-    m.put(TABLE_ROUND_WHITE, 53, 9); deco(FLOWERS, 53, 9)
-    m.put(ARMCHAIR_BEIGE, 50, 8); m.put(ARMCHAIR_BEIGE, 55, 8)
-    plant(PLANT_PALM, 56, 12); plant(PLANT_TALL, 48, 13); plant(PLANT_SPIKY, 58, 3)
+    # Team desks (top right): one long desk (quiet zone) and a reading corner.
+    m.stamp(*LONG_DESK, 32, 3)
+    m.stamp(*WINDOW, 31, 1); m.stamp(*WINDOW, 33, 1)
+    wall(PAINTING_WIDE, 35, 1); m.stamp(*CLOCK, 37, 1)
+    m.put(BOOKSHELF, 38, 1); m.put(BOOKSHELF, 40, 1)
+    plant(PLANT_SPIKY, 42, 3); plant(PLANT_TALL, 31, 10)
+    m.fill("floor1", 38, 5, 42, 10, RUG)
+    m.put(SOFA_BLUE, 39, 5)
+    m.put(TABLE_ROUND_WHITE, 40, 8); deco(FLOWERS, 40, 8)
+    m.put(ARMCHAIR_BEIGE, 38, 8); m.put(ARMCHAIR_BEIGE, 41, 8)
 
-    # Open office, left: four desk pods, printer, bookshelves and paintings.
-    for x, y in PODS[:4]:
+    # Open office: two pods each side, a pool corner and a lounge in the middle.
+    for x, y in PODS:
         m.stamp(*POD, x, y)
-    m.stamp(*PRINTER, 1, 17); m.stamp(*BIN, 2, 18)
-    wall(PAINT_GARDEN, 4, 16); wall(PAINTING_WIDE, 9, 16)
-    m.put(BOOKSHELF, 14, 16); m.put(BOOKSHELF, 16, 16)
-    plant(PLANT_TREE, 1, 22); plant(PLANT_SPIKY, 1, 27); plant(PLANT_TALL, 8, 29); plant(PLANT_GRASS, 15, 29)
-    m.stamp(*SHELF, 16, 29)
-
-    # Open office, centre: pool corner with a rug, bar tables and stools.
-    m.fill("floor1", 23, 21, 34, 27, RUG)
-    m.put(pool_grid(m.pool_firstgid()), *POOL_TABLE, collide="all")
-    for x, y in ((24, 22), (33, 22), (24, 26), (33, 26)):
+    m.stamp(*PRINTER, 1, 15); m.stamp(*BIN, 1, 17)
+    m.stamp(*PRINTER, 42, 15); m.stamp(*BIN, 42, 17)
+    wall(PAINT_GARDEN, 3, 13); m.put(BOOKSHELF, 10, 13); wall(PAINTING_WIDE, 13, 13)
+    wall(PAINT_CHERRY, 21, 13); wall(WORLD_MAP, 24, 13); wall(PAINT_BIRD, 31, 13); wall(PAINT_FLOWER, 35, 13)
+    plant(PLANT_TREE, 1, 21); plant(PLANT_SPIKY, 42, 21); plant(PLANT_TALL, 32, 22)
+    px, py = POOL_TABLE
+    m.fill("floor1", px - 3, py - 2, px + POOL_COLS + 2, py + POOL_ROWS + 1, RUG)
+    m.put(pool_grid(m.pool_firstgid()), px, py, collide="all")
+    for x, y in ((px - 2, py - 1), (px + POOL_COLS + 1, py - 1), (px - 2, py + POOL_ROWS), (px + POOL_COLS + 1, py + POOL_ROWS)):
         m.put(STOOL_WOOD, x, y, collide="none")
-    for x, y in ((21, 21), (36, 21)):
-        m.put(TABLE_ROUND_BLACK, x, y); m.put(STOOLS[0], x, y + 1, collide="none")
-    plant(PLANT_PALM, 21, 26); plant(PLANT_PALM, 35, 26)
-    wall(PAINT_CHERRY, 23, 16); wall(WORLD_MAP, 25, 16); wall(PAINT_BIRD, 29, 16); wall(PAINT_FLOWER, 36, 16)
-    plant(PLANT_PALM, 35, 16)
+    plant(PLANT_PALM, 21, 14)
+    m.fill("floor1", 24, 16, 31, 22, RUG)
+    m.put(SOFA_BEIGE, 25, 16)
+    m.put(TABLE_BIG, 25, 19); deco(FLOWERS_YELLOW, 26, 20)
+    m.put(POUF_ORANGE, 29, 18); m.put(POUF_ORANGE, 29, 20)
+    plant(PLANT_BUSH, 31, 16)
 
-    # Open office, right: a lounge corner and four more pods.
-    m.fill("floor1", 40, 19, 47, 27, RUG)
-    m.put(SOFA_BEIGE, 41, 19)
-    m.put(TABLE_BIG, 41, 22); deco(FLOWERS_YELLOW, 42, 23)
-    m.put(POUF_ORANGE, 45, 22); m.put(POUF_ORANGE, 45, 24)
-    m.put(SOFA_YELLOW, 41, 26)
-    plant(PLANT_PALM, 44, 16); plant(PLANT_TALL, 47, 19); plant(PLANT_BUSH, 47, 26)
-    for x, y in PODS[4:]:
-        m.stamp(*POD, x, y)
-    m.stamp(*PRINTER, 58, 17); m.stamp(*BIN, 58, 19)
-    plant(PLANT_TREE, 58, 28)
-
-    # Coffee corner: kitchen counter, coffee machines, round tables with flowers, plants and art.
-    m.stamp(*KITCHEN, 1, 34)
-    m.put(COUNTER, 4, 34)
-    m.put(COFFEE_MACHINE, 7, 34, collide="all")
-    m.put(CABINET, 8, 34, collide="all")
-    for i, (x, y) in enumerate(((6, 39), (11, 38), (16, 39), (8, 43), (14, 43))):
+    # Coffee corner: kitchen, coffee machine, café tables with flowers.
+    m.stamp(*KITCHEN, 1, 27)
+    m.put(COUNTER, 3, 27)
+    m.put(COFFEE_MACHINE, 6, 27, collide="all")
+    m.put(CABINET, 7, 27, collide="all")
+    for i, (x, y) in enumerate(((5, 31), (9, 30), (12, 28))):
         m.put(TABLE_ROUND_ORANGE, x, y)
         deco((FLOWERS, FLOWERS_YELLOW)[i % 2], x, y)
         m.put(STOOL_WOOD, x - 1, y, collide="none")
         m.put(STOOL_WOOD, x + 1, y, collide="none")
-    wall(PAINTING_WIDE, 13, 32); wall(PAINT_LEMON, 3, 32); wall(PAINT_CHERRY, 16, 32)
-    plant(PLANT_TALL, 18, 34); plant(PLANT_PALM, 17, 41); plant(PLANT_SPIKY, 12, 34); plant(PLANT_FERN, 1, 42)
-    m.stamp(*BIN, 3, 44)
+    wall(PAINT_LEMON, 3, 25); wall(PAINTING_WIDE, 9, 25); wall(PAINT_CHERRY, 12, 25)
+    plant(PLANT_SPIKY, 9, 27); plant(PLANT_TALL, 13, 31)
+    m.stamp(*BIN, 1, 32)
 
-    # Reception: logo, welcome lounge, plants, armchairs, art.
-    m.stamp(*LOGO, 26, 32)
-    m.put(COUNTER, 27, 35); deco(FLOWERS, 29, 35)
-    m.stamp(*LOUNGE, 22, 39, layers=("floor1", "furniture1", "furniture2", "furniture3", "above1", "above2", "collisions"))
-    m.put(SOFA_BLUE, 33, 40)
-    m.put(TABLE_ROUND_WHITE, 34, 43, collide="all"); deco(FLOWERS_YELLOW, 34, 43)
-    m.stamp(*ARMCHAIRS, 38, 36)
-    wall(PAINT_SUNFLOWERS, 23, 32); wall(PAINT_GARDEN, 33, 32); wall(PAINT_BIRD, 38, 32)
-    plant(PLANT_PALM, 21, 34); plant(PLANT_PALM, 32, 34)
-    plant(PLANT_TREE, 39, 43)
-    m.put(FLOWERS, 22, 44, collide="all")
-    m.put(FLOWERS_YELLOW, 38, 44, collide="all")
-    m.fill("start", 29, 42, 31, 43, START)
+    # Reception: logo, desk, the all-hands stage, sofas and plants.
+    m.stamp(*LOGO, 19, 25)
+    m.put(COUNTER, 20, 27); deco(FLOWERS, 22, 27)
+    wall(PAINT_SUNFLOWERS, 16, 25); wall(PAINT_BIRD, 28, 25)
+    m.put(SOFA_BEIGE, 15, 27)
+    m.stamp(*ARMCHAIRS, 28, 27)
+    m.put(SOFA_BLUE, 25, 31)
+    plant(PLANT_PALM, 15, 30)
+    m.put(FLOWERS_YELLOW, 28, 32, collide="all")
+    m.fill("start", 20, 31, 22, 32, START)
 
-    # Games area: big screen with poufs and sofa, board game table, game tables, balloons.
-    m.put(SCREEN, 48, 32, layer="walls2", collide="none")
-    for x in range(45, 52, 2):
-        m.put(POUF_ORANGE, x, 36, collide="none")
-    m.put(SOFA_YELLOW, 48, 38)
-    m.put(TABLE_BIG, 43, 41)
-    for i, (x, y) in enumerate(((42, 42), (46, 42), (44, 40), (44, 44))):
-        m.put(STOOLS[i % 4], x, y, collide="none")
+    # Games area: screen with poufs and sofa, board-game table, game tables, balloons.
+    wall(SCREEN, 35, 25); wall(WORLD_MAP, 40, 25); wall(PAINT_CITY, 31, 25)
+    for x in (35, 37):
+        m.put(POUF_ORANGE, x, 27, collide="none")
+    m.put(SOFA_YELLOW, 35, 30)
+    m.put(TABLE_BIG, 31, 30)
+    m.put(STOOLS[0], 30, 31, collide="none"); m.put(STOOLS[1], 34, 31, collide="none")
     for i, (x, y) in enumerate(GAME_TABLES):
         m.put(TABLE_ROUND_BLACK, x, y)
         m.put(STOOLS[i % 4], x - 1, y, collide="none")
         m.put(STOOLS[(i + 1) % 4], x + 1, y, collide="none")
-    m.put(BALLOONS, 41, 34, collide="none")
-    m.put(BALLOONS, 58, 34, collide="none")
-    m.put(WORLD_MAP, 55, 32, layer="walls2", collide="none"); wall(PAINT_CITY, 43, 32)
-    plant(PLANT_TALL, 58, 43); plant(PLANT_PALM, 41, 36); plant(PLANT_SPIKY, 52, 42)
+    m.put(BALLOONS, 42, 25, collide="none"); m.put(BALLOONS, 30, 25, collide="none")
+    plant(PLANT_TALL, 42, 31)
 
     garden(m, rng, tree)
 
@@ -442,34 +422,45 @@ def garden(m, rng, tree):
         for x in range(gx1, gx2 + 1):
             m.set("floor1", x, y, rng.choice(GRASS_VARIANTS))
 
-    # Paths: from each garden door, and a winding main path linking them.
+    # Paths: from each garden door to a main path along the building.
     def path(x1, y1, x2, y2):
         m.fill("floor1", x1, y1, x2, y2, COBBLE); mark(x1, y1, x2 - x1 + 1, y2 - y1 + 1)
-    for _, y1, _, y2 in GARDEN_DOORS:
-        path(59, y1, 63, y2)
-    path(62, 7, 63, 39)
-    path(64, 22, 72, 23)                       # to the pond lookout
-    path(64, 8, 69, 9)                         # to the picnic lawn
+    for dx, y1, _, y2 in GARDEN_DOORS:
+        path(dx, y1, 46, y2)
+    path(46, GARDEN_DOORS[0][1], 47, GARDEN_DOORS[-1][3])
 
-    # Pond (south), rounded, with lily pads, lotus flowers and ducks.
-    px1, py1, px2, py2 = 68, 28, 79, 36
+    # Picnic lawn (north): a big wooden table with stools, a blossom tree for shade.
+    m.put(TABLE_BIG, 50, 3); mark(49, 3, 5, 4)
+    for sx, sy in ((49, 4), (53, 4), (51, 6)):
+        m.put(STOOL_WOOD, sx, sy, collide="none")
+    plant_tree(BLOSSOM_TREES[2], 54, 3)
+
+    # Flower meadow with benches around it.
+    for y in range(9, 14):
+        for x in range(49, 57):
+            if rng.random() < 0.45:
+                m.put(rng.choice(FLOWER_PATCHES + FLOWERS_SMALL), x, y, layer="furniture2", collide="none")
+    mark(49, 9, 8, 5)
+    for x in (50, 54):
+        m.put(BENCH, x, 8); mark(x, 8, 2, 1)
+    m.put(BENCH_R, 48, 10); m.put(BENCH_R, 48, 12); mark(48, 10, 1, 4)
+
+    # Duck pond, rounded, with lily pads, lotus flowers and ducks; benches on the north shore.
+    px1, py1, px2, py2 = 50, 16, 56, 21
     pond = {(x, y) for x in range(px1, px2 + 1) for y in range(py1, py2 + 1)}
     for cx, cy in ((px1, py1), (px2, py1), (px1, py2), (px2, py2)):
         pond -= {(cx, cy), (cx + (1 if cx == px1 else -1), cy), (cx, cy + (1 if cy == py1 else -1))}
     for x, y in pond:
         m.set("floor1", x, y, WATER); m.set("collisions", x, y, COLLIDE)
     mark(px1 - 1, py1 - 1, px2 - px1 + 3, py2 - py1 + 3)
-    for x, y, g in ((70, 30, LILY_PADS[0]), (71, 30, LILY_PADS[2]), (76, 29, LILY_PADS[1]), (74, 33, LILY_PADS[3]),
-                    (69, 34, LILY_PADS[4]), (78, 32, LILY_PADS[5]), (72, 35, LILY_PADS[1]), (77, 35, LILY_PADS[0]),
-                    (75, 29, LOTUS), (73, 31, DUCK), (75, 34, DUCK), (70, 33, LOTUS)):
+    for x, y, g in ((51, 17, LILY_PADS[0]), (52, 17, LILY_PADS[2]), (55, 17, LILY_PADS[1]), (53, 19, LILY_PADS[3]),
+                    (51, 20, LILY_PADS[4]), (54, 20, LILY_PADS[5]), (54, 17, LOTUS), (51, 19, LOTUS),
+                    (52, 18, DUCK), (54, 19, DUCK)):
         m.put(g, x, y, layer="furniture2", collide="none")
-    for x, y, g in ((67, 30, ROCKS[1]), (67, 34, ROCKS[2]), (80, 29, ROCKS[2]), (80, 34, ROCKS[1]),
-                    (72, 37, ROCKS[1]), (78, 27, ROCKS[2])):
+    for x, y, g in ((49, 18, ROCKS[1]), (57, 19, ROCKS[2]), (53, 22, ROCKS[1])):
         m.put(g, x, y, collide="all")
-    m.fill("floor1", 72, 24, 73, 26, COBBLE); mark(72, 24, 2, 3)          # lookout over the pond
-    m.put(BENCH, 69, 26); m.put(BENCH, 75, 26)
-    m.put(PILLAR, 71, 25, collide="base"); m.put(PILLAR, 74, 25, collide="base")
-    for x in (69, 75): mark(x, 26, 2, 1)
+    for x in (50, 54):
+        m.put(BENCH, x, 15)
 
     # Meditation garden (south): hedged stone patio, lotus pool, cushions, pillars and rocks. A silent zone.
     mx1, my1, mx2, my2 = MEDITATION
@@ -477,77 +468,53 @@ def garden(m, rng, tree):
     for x in range(mx1, mx2 + 1, 2):                                    # hedge along the top
         m.put(BUSHES[0] if x + 1 <= mx2 else [[BUSHES[0]]], x, my1, collide="all")
     m.fill("floor1", mx1, my1 + 1, mx2, my2, COBBLE)
-    path(64, my1 + 2, 64, my1 + 3)                                      # entrance from the main path
-    for x, y in ((70, 40), (71, 40), (72, 40), (70, 41), (71, 41), (72, 41)):
-        m.set("floor1", x, y, WATER); m.set("collisions", x, y, COLLIDE)
-    m.put(LOTUS, 70, 40, layer="furniture2", collide="none"); m.put(LILY_PADS[2], 72, 41, layer="furniture2", collide="none")
-    m.put(LILY_PADS[5], 71, 40, layer="furniture2", collide="none")
-    for x, y, c in ((69, 40, 2), (69, 41, 0), (73, 40, 0), (73, 41, 2), (71, 39, 1), (71, 42, 3)):
+    cx = (mx1 + mx2) // 2                                               # pool centre column
+    for x in range(cx - 1, cx + 2):
+        for y in (my1 + 2, my1 + 3):
+            m.set("floor1", x, y, WATER); m.set("collisions", x, y, COLLIDE)
+    m.put(LOTUS, cx - 1, my1 + 2, layer="furniture2", collide="none")
+    m.put(LILY_PADS[2], cx + 1, my1 + 3, layer="furniture2", collide="none")
+    for x, y, c in ((cx - 2, my1 + 2, 2), (cx - 2, my1 + 3, 0), (cx + 2, my1 + 2, 0), (cx + 2, my1 + 3, 2),
+                    (cx, my1 + 1, 1), (cx, my2, 3)):
         m.put(STOOLS[c], x, y, collide="none")                          # meditation cushions
     for x in (mx1 + 1, mx2 - 1):
         m.put(PILLAR, x, my1 + 1, layer="furniture2", collide="base", above_rows=1)
-    m.put(ROCKS[3], mx1 + 1, my2 - 1, collide="all"); m.put(ROCKS[0], mx2 - 2, my2, collide="all")
-    for x, y in ((mx1 + 3, my1 + 1), (mx2 - 3, my1 + 1), (mx1 + 3, my2), (mx2 - 4, my2 - 1)):
+    m.put(ROCKS[3], mx1, my2 - 1, collide="all"); m.put(ROCKS[0], mx2 - 1, my2, collide="all")
+    for x, y in ((cx - 1, my1 + 1), (cx + 1, my1 + 1), (cx - 1, my2), (cx + 1, my2)):
         m.put(TUFTS[0], x, y, layer="furniture2", collide="none")
 
-    # Picnic lawn (north): big wooden tables with stools, blossom trees for shade.
-    for tx in (69, 74):
-        m.put(TABLE_BIG, tx, 6); mark(tx - 1, 5, 5, 5)
-        for sx, sy in ((tx - 1, 7), (tx + 3, 7), (tx + 1, 5), (tx + 1, 9)):
-            m.put(STOOL_WOOD, sx, sy, collide="none")
-    mark(64, 7, 3, 3)
-    plant_tree(BLOSSOM_TREES[2], 65, 3); plant_tree(BLOSSOM_TREES[1], 78, 7)
+    # Barrels and hedges along the building.
+    place(BARRELS, 44, 31, collide="all"); place(BARRELS, 44, 9, collide="all")
+    for y in (1, 3, 12, 14, 22, 25):
+        if free(44, y, 2, 1): place(rng.choice(BUSHES[:2]), 44, y, collide="all")
 
-    # Flower meadow in the middle, with benches facing it.
-    for y in range(13, 20):
-        for x in range(66, 79):
-            if (x, y) not in used and rng.random() < 0.45:
-                m.put(rng.choice(FLOWER_PATCHES + FLOWERS_SMALL), x, y, layer="furniture2", collide="none")
-    mark(66, 13, 13, 7)
-    for x in (67, 72, 77):
-        m.put(BENCH, x, 12); mark(x, 12, 2, 1)
-    m.put(BENCH_R, 64, 15); m.put(BENCH_R, 64, 18); mark(64, 15, 1, 5)
-
-    # Barrels and a potting corner next to the building.
-    place(BARRELS, 60, 42, collide="all"); place(BARRELS, 60, 11, collide="all")
-
-    # Hedges along the building and small shrubs.
-    for y in (2, 5, 14, 18, 27, 31, 34):
-        if free(60, y, 2, 1): place(rng.choice(BUSHES[:2]), 60, y, collide="all")
-
-    # A ring of trees framing the garden (top, right, bottom), plus a few inside.
-    for x in range(60, 78, 3):
+    # Trees framing the garden: top, right and bottom.
+    for x in (48, 51, 54):
         if free(x, 0, 3, 3): plant_tree(rng.choice(BIG_TREES), x, 0)
-    for y in range(0, 45, 3):
-        for x in (78, 81):
-            yy = min(y + (1 if x == 78 else 0), gy2 - 2)
-            if free(x, yy, 3, 3): plant_tree(rng.choice(BIG_TREES), x, yy)
-    for x in range(64, 78, 3):
-        if free(x, 43, 3, 3): plant_tree(rng.choice(BIG_TREES), x, 43)
-    for x, y in ((65, 25), (76, 20), (66, 20)):
-        if free(x, y, 2, 3): plant_tree(rng.choice(TREES), x, y)
-    for x, y in ((70, 20), (77, 10)):
-        if free(x, y, 2, 2): plant_tree(rng.choice(SMALL_TREES), x, y)
+    for y in range(0, gy2 + 1, 3):
+        yy = min(y, gy2 - 2)
+        if free(57, yy, 3, 3): plant_tree(rng.choice(BIG_TREES), 57, yy)
+    for x in (47, 50, 53):
+        if free(x, gy2 - 2, 3, 3): plant_tree(rng.choice(BIG_TREES), x, gy2 - 2)
 
-    # Sprinkle rocks, tufts and wild flowers on the remaining lawn.
+    # Sprinkle tufts and wild flowers on the remaining lawn.
     for y in range(gy1, gy2 + 1):
         for x in range(gx1, gx2 + 1):
             if (x, y) in used: continue
             r = rng.random()
-            if r < 0.06: m.put(rng.choice(FLOWERS_SMALL), x, y, layer="furniture2", collide="none")
-            elif r < 0.09: m.put(rng.choice(TUFTS), x, y, layer="furniture2", collide="none")
-            elif r < 0.10: m.put(rng.choice(ROCKS[1:3]), x, y, collide="all")
+            if r < 0.07: m.put(rng.choice(FLOWERS_SMALL), x, y, layer="furniture2", collide="none")
+            elif r < 0.10: m.put(rng.choice(TUFTS), x, y, layer="furniture2", collide="none")
 
 
 # Free browser games (open in a new tab; no accounts needed to play with colleagues).
-GAME_TABLES = [(54, 36), (54, 40), (50, 43)]
-POOL_TABLE = (27, 23)
-PODS = [(3, 19), (10, 19), (3, 25), (10, 25), (50, 19), (54, 19), (50, 25), (54, 25)]   # top-left of each 4-desk pod
+GAME_TABLES = [(32, 28), (40, 28), (40, 31)]
+POOL_TABLE = (15, 18)                      # top-left of the 4x3 pool table
+PODS = [(2, 16), (6, 16), (34, 16), (38, 16)]   # top-left of each 4-desk pod
 POD_SEATS = [(0, 1), (3, 1), (0, 3), (3, 3)]   # chair offsets inside a pod
-MEDITATION = (65, 38, 76, 42)              # silent meditation garden, south of the pond (top row is the hedge)
-STAGE = (26, 36, 32, 37)                   # megaphone speaker zone in reception, in front of the logo
-FOCUS_DESKS = (40, 3, 47, 15)              # silent zone around the team long desks
-BIRDSONG = "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/80/Birds_singing_in_garden.ogg/Birds_singing_in_garden.ogg.mp3"                      # top-left of the 4x3 pool table
+MEDITATION = (48, 24, 56, 28)              # silent meditation garden, south of the pond (top row is the hedge)
+STAGE = (18, 29, 25, 30)                   # megaphone speaker zone in reception, in front of the desk
+FOCUS_DESKS = (31, 3, 37, 11)              # silent zone around the team long desk
+BIRDSONG = "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/80/Birds_singing_in_garden.ogg/Birds_singing_in_garden.ogg.mp3"
 POOL_GAME = ("8-ball pool (Foony)", "https://foony.com/games/8-ball-pool-online-billiards")
 GAMES = [
     ("Chess", "https://lichess.org/"),
@@ -569,9 +536,9 @@ def wam():
     def describe(name, text):
         return {"id": pid(name, "description"), "type": "areaDescriptionProperties", "description": text, "searchable": True}
     areas = []
-    for i, x0 in enumerate((1, 14, 27), start=1):
+    for i, x0 in enumerate(MEETING_ROOMS, start=1):
         name = f"Meeting room {i}"
-        areas.append(area(name, x0, 3, x0 + 11, 14, [
+        areas.append(area(name, x0, 3, x0 + 8, 11, [
             describe(name, "Everyone inside joins one video call (LiveKit)."),
             {"id": pid(name, "livekit"), "type": "livekitRoomProperty", "roomName": f"meeting-room-{i}",
              "livekitRoomConfig": {"startWithAudioMuted": False, "startWithVideoMuted": False}},
@@ -579,7 +546,7 @@ def wam():
             {"id": pid(name, "max"), "type": "maxUsersInAreaPropertyData", "maxUsers": 8},
         ]))
         # Entry point for links straight into the room: .../office.wam#meeting-room-1 (WA doesn't decode spaces).
-        areas.append(area(f"meeting-room-{i}", x0 + 5, 12, x0 + 6, 13, [
+        areas.append(area(f"meeting-room-{i}", x0 + 6, 9, x0 + 7, 10, [
             {"id": pid(name, "start"), "type": "start", "isDefault": False}]))
     for name, text in (("Reception", "Welcome! Walk up to people to talk."),
                        ("Coffee corner", "Grab a coffee and chat."),
@@ -603,7 +570,8 @@ def wam():
          "seeAttendees": True},
         {"id": pid("Stage", "highlight"), "type": "highlight", "opacity": 0.4, "color": "#f5c542"},
     ]))
-    areas.append(area("Reception audience", 21, STAGE[3] + 1, 39, 44, [listen("Reception audience")]))
+    (rx1, _, rx2, ry2), _ = ROOMS["Reception"]
+    areas.append(area("Reception audience", rx1, STAGE[3] + 1, rx2, ry2, [listen("Reception audience")]))
 
     # Focus desks: nobody can start a conversation with you here.
     areas.append(area("Focus desks", *FOCUS_DESKS, [

@@ -9,8 +9,8 @@
       "visible": true,
       "x": 32,
       "y": 96,
-      "width": 384,
-      "height": 384,
+      "width": 288,
+      "height": 288,
       "properties": [
         {
           "id": "15aa9648-552a-5a5d-9deb-6bb58f1e4288",
@@ -43,8 +43,8 @@
       "id": "ff407975-9cc1-5842-9770-dd2ffa525344",
       "name": "meeting-room-1",
       "visible": true,
-      "x": 192,
-      "y": 384,
+      "x": 224,
+      "y": 288,
       "width": 64,
       "height": 64,
       "properties": [
@@ -59,10 +59,10 @@
       "id": "2db75337-7e47-56e4-8e58-d66836899af7",
       "name": "Meeting room 2",
       "visible": true,
-      "x": 448,
+      "x": 352,
       "y": 96,
-      "width": 384,
-      "height": 384,
+      "width": 288,
+      "height": 288,
       "properties": [
         {
           "id": "b6c817b7-f480-5a1d-ad92-293e1bb38b6c",
@@ -95,8 +95,8 @@
       "id": "bd7cea60-5fc9-51d5-a7bf-4336bf4eab56",
       "name": "meeting-room-2",
       "visible": true,
-      "x": 608,
-      "y": 384,
+      "x": 544,
+      "y": 288,
       "width": 64,
       "height": 64,
       "properties": [
@@ -111,10 +111,10 @@
       "id": "cd295ea5-8664-5521-8b1d-10f28581acf4",
       "name": "Meeting room 3",
       "visible": true,
-      "x": 864,
+      "x": 672,
       "y": 96,
-      "width": 384,
-      "height": 384,
+      "width": 288,
+      "height": 288,
       "properties": [
         {
           "id": "f176e900-bcb2-56ce-9db1-0ffe9b47240c",
@@ -147,8 +147,8 @@
       "id": "5bd22eb9-992b-518d-9830-27dbab537d65",
       "name": "meeting-room-3",
       "visible": true,
-      "x": 1024,
-      "y": 384,
+      "x": 864,
+      "y": 288,
       "width": 64,
       "height": 64,
       "properties": [
@@ -163,10 +163,10 @@
       "id": "a3155cac-c742-5ad6-a5f6-732d69c40966",
       "name": "Reception",
       "visible": true,
-      "x": 672,
-      "y": 1088,
-      "width": 608,
-      "height": 352,
+      "x": 480,
+      "y": 864,
+      "width": 448,
+      "height": 192,
       "properties": [
         {
           "id": "305d1017-8dcf-5b69-a3cd-91738db0466a",
@@ -181,9 +181,9 @@
       "name": "Coffee corner",
       "visible": true,
       "x": 32,
-      "y": 1088,
-      "width": 608,
-      "height": 352,
+      "y": 864,
+      "width": 416,
+      "height": 192,
       "properties": [
         {
           "id": "921de01e-2dbb-5edb-bf39-dea32e926849",
@@ -203,10 +203,10 @@
       "id": "badfa93f-e9d3-598a-a9a2-96bc6864789d",
       "name": "Games area",
       "visible": true,
-      "x": 1312,
-      "y": 1088,
-      "width": 576,
-      "height": 352,
+      "x": 960,
+      "y": 864,
+      "width": 416,
+      "height": 192,
       "properties": [
         {
           "id": "b0705f48-bdb9-5236-81ac-392ef273ea88",
@@ -227,9 +227,9 @@
       "name": "Open office",
       "visible": true,
       "x": 32,
-      "y": 512,
-      "width": 1856,
-      "height": 480,
+      "y": 416,
+      "width": 1344,
+      "height": 352,
       "properties": [
         {
           "id": "863ad7be-bdd3-5934-aae1-775256431e34",
@@ -249,10 +249,10 @@
       "id": "7db93dfd-8ccd-542e-84f4-d6088ea73c21",
       "name": "Team desks",
       "visible": true,
-      "x": 1280,
+      "x": 992,
       "y": 96,
-      "width": 608,
-      "height": 416,
+      "width": 384,
+      "height": 288,
       "properties": [
         {
           "id": "4ca4448d-ac86-50f4-aa4d-3268470c3bfc",
@@ -272,10 +272,10 @@
       "id": "74acb0c4-38c6-5be8-8d80-5d413aac72e2",
       "name": "Garden",
       "visible": true,
-      "x": 1920,
+      "x": 1408,
       "y": 0,
-      "width": 768,
-      "height": 1472,
+      "width": 512,
+      "height": 1088,
       "properties": [
         {
           "id": "61573a55-9c22-549b-93ee-be9fbb1a01e7",
@@ -301,9 +301,9 @@
       "id": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
       "name": "Stage",
       "visible": true,
-      "x": 832,
-      "y": 1152,
-      "width": 224,
+      "x": 576,
+      "y": 928,
+      "width": 256,
       "height": 64,
       "properties": [
         {
@@ -331,10 +331,10 @@
       "id": "6e1993c6-3807-5143-b80a-99cd11ecbc29",
       "name": "Reception audience",
       "visible": true,
-      "x": 672,
-      "y": 1216,
-      "width": 608,
-      "height": 224,
+      "x": 480,
+      "y": 992,
+      "width": 448,
+      "height": 64,
       "properties": [
         {
           "id": "4b089034-0780-57ab-a087-6790f9232516",
@@ -348,10 +348,10 @@
       "id": "375ba97a-1da6-5011-99cc-cf9de9f09e9a",
       "name": "Focus desks",
       "visible": true,
-      "x": 1280,
+      "x": 992,
       "y": 96,
-      "width": 256,
-      "height": 416,
+      "width": 224,
+      "height": 288,
       "properties": [
         {
           "id": "82df5ee6-1459-5b70-91f5-211a32fce715",
@@ -369,9 +369,9 @@
       "id": "96d0a460-c731-54ac-8486-3e3c7a490e01",
       "name": "Meditation garden",
       "visible": true,
-      "x": 2080,
-      "y": 1248,
-      "width": 384,
+      "x": 1536,
+      "y": 800,
+      "width": 288,
       "height": 128,
       "properties": [
         {
@@ -390,8 +390,8 @@
       "id": "07860ecb-ffce-5c20-b8c9-d147ad854b3f",
       "name": "Desk 1.1",
       "visible": true,
-      "x": 96,
-      "y": 640,
+      "x": 64,
+      "y": 544,
       "width": 32,
       "height": 64,
       "properties": [
@@ -408,8 +408,8 @@
       "id": "80259619-8fc3-563b-bae2-7eda681c1ffe",
       "name": "Desk 1.2",
       "visible": true,
-      "x": 192,
-      "y": 640,
+      "x": 160,
+      "y": 544,
       "width": 32,
       "height": 64,
       "properties": [
@@ -426,8 +426,8 @@
       "id": "5fd8fbf6-540d-5198-ac6a-4829a7b71e33",
       "name": "Desk 1.3",
       "visible": true,
-      "x": 96,
-      "y": 704,
+      "x": 64,
+      "y": 608,
       "width": 32,
       "height": 64,
       "properties": [
@@ -444,8 +444,8 @@
       "id": "9f5bee73-f616-5695-a6cf-d66c8a205065",
       "name": "Desk 1.4",
       "visible": true,
-      "x": 192,
-      "y": 704,
+      "x": 160,
+      "y": 608,
       "width": 32,
       "height": 64,
       "properties": [
@@ -462,8 +462,8 @@
       "id": "bfe3754c-9839-535f-8d5c-d04727f36560",
       "name": "Desk 2.1",
       "visible": true,
-      "x": 320,
-      "y": 640,
+      "x": 192,
+      "y": 544,
       "width": 32,
       "height": 64,
       "properties": [
@@ -480,8 +480,8 @@
       "id": "3e24a3f2-6f39-51aa-956d-c363a42e5614",
       "name": "Desk 2.2",
       "visible": true,
-      "x": 416,
-      "y": 640,
+      "x": 288,
+      "y": 544,
       "width": 32,
       "height": 64,
       "properties": [
@@ -498,8 +498,8 @@
       "id": "84577a48-1688-5b2d-a6d7-dc16777de83f",
       "name": "Desk 2.3",
       "visible": true,
-      "x": 320,
-      "y": 704,
+      "x": 192,
+      "y": 608,
       "width": 32,
       "height": 64,
       "properties": [
@@ -516,8 +516,8 @@
       "id": "9e843bbe-ef10-50e8-98e7-af5bd149b11b",
       "name": "Desk 2.4",
       "visible": true,
-      "x": 416,
-      "y": 704,
+      "x": 288,
+      "y": 608,
       "width": 32,
       "height": 64,
       "properties": [
@@ -534,8 +534,8 @@
       "id": "0d676c81-4051-527b-a637-e9ef96d50648",
       "name": "Desk 3.1",
       "visible": true,
-      "x": 96,
-      "y": 832,
+      "x": 1088,
+      "y": 544,
       "width": 32,
       "height": 64,
       "properties": [
@@ -552,8 +552,8 @@
       "id": "665ad56a-7aed-583e-8c52-ce8b98e16c43",
       "name": "Desk 3.2",
       "visible": true,
-      "x": 192,
-      "y": 832,
+      "x": 1184,
+      "y": 544,
       "width": 32,
       "height": 64,
       "properties": [
@@ -570,8 +570,8 @@
       "id": "d3b83f4f-73be-586b-994c-1136aeaeb451",
       "name": "Desk 3.3",
       "visible": true,
-      "x": 96,
-      "y": 896,
+      "x": 1088,
+      "y": 608,
       "width": 32,
       "height": 64,
       "properties": [
@@ -588,8 +588,8 @@
       "id": "c5fac6e2-ba33-53e6-8b0d-1f048b413425",
       "name": "Desk 3.4",
       "visible": true,
-      "x": 192,
-      "y": 896,
+      "x": 1184,
+      "y": 608,
       "width": 32,
       "height": 64,
       "properties": [
@@ -606,8 +606,8 @@
       "id": "4918de06-99c9-57d7-94c9-577660319dc3",
       "name": "Desk 4.1",
       "visible": true,
-      "x": 320,
-      "y": 832,
+      "x": 1216,
+      "y": 544,
       "width": 32,
       "height": 64,
       "properties": [
@@ -624,8 +624,8 @@
       "id": "d010c672-24ef-5591-9a9a-f67292b6b3d2",
       "name": "Desk 4.2",
       "visible": true,
-      "x": 416,
-      "y": 832,
+      "x": 1312,
+      "y": 544,
       "width": 32,
       "height": 64,
       "properties": [
@@ -642,8 +642,8 @@
       "id": "613051c1-2359-53e2-9fc6-463f579edd3f",
       "name": "Desk 4.3",
       "visible": true,
-      "x": 320,
-      "y": 896,
+      "x": 1216,
+      "y": 608,
       "width": 32,
       "height": 64,
       "properties": [
@@ -660,8 +660,8 @@
       "id": "5d6c11c9-d160-5d5c-918a-0ec60cf9a3b7",
       "name": "Desk 4.4",
       "visible": true,
-      "x": 416,
-      "y": 896,
+      "x": 1312,
+      "y": 608,
       "width": 32,
       "height": 64,
       "properties": [
@@ -675,299 +675,11 @@
       ]
     },
     {
-      "id": "fc65d90c-f8be-54f0-b52b-b23775aa0496",
-      "name": "Desk 5.1",
-      "visible": true,
-      "x": 1600,
-      "y": 640,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "79608b36-2400-5198-8409-a95c449bec25",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "d450a708-6462-5653-9331-179922b30f33",
-      "name": "Desk 5.2",
-      "visible": true,
-      "x": 1696,
-      "y": 640,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "3cd9ce4a-d461-50e0-96d8-39ccf386f9cb",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "6ca51e2e-4d49-55bb-91a6-e201b42a15fe",
-      "name": "Desk 5.3",
-      "visible": true,
-      "x": 1600,
-      "y": 704,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "982f762d-4a94-5737-a70e-7022572d0fc0",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "0eb2d504-ab5f-5a79-9e32-582a27de3cda",
-      "name": "Desk 5.4",
-      "visible": true,
-      "x": 1696,
-      "y": 704,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "3c273918-92c7-5fa6-ac72-685b628dbc54",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "9ecd3b5e-7f90-5bcb-876e-f43fea88d827",
-      "name": "Desk 6.1",
-      "visible": true,
-      "x": 1728,
-      "y": 640,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "398ecace-b8ce-5a8e-be57-1598fcccfdcc",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "85837fef-4328-5351-b021-807c0e52ae2e",
-      "name": "Desk 6.2",
-      "visible": true,
-      "x": 1824,
-      "y": 640,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "62037e0f-2400-5831-8b24-6a21e2945d64",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "61097a16-52e7-54ec-be79-d73997cf1b72",
-      "name": "Desk 6.3",
-      "visible": true,
-      "x": 1728,
-      "y": 704,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "f29a7198-2ab4-5c95-8268-9c145e08208d",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "8c85b4c4-875e-5cd0-ba98-4ad097ba2a31",
-      "name": "Desk 6.4",
-      "visible": true,
-      "x": 1824,
-      "y": 704,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "21c00569-28ba-5daa-8f8d-fccbde759265",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "b90125f5-cd55-5693-ba16-ef2c43756b8d",
-      "name": "Desk 7.1",
-      "visible": true,
-      "x": 1600,
-      "y": 832,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "43739503-3524-59cd-83a6-5660576c4907",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "f6d529e5-d14b-5812-8637-ddac3e370f02",
-      "name": "Desk 7.2",
-      "visible": true,
-      "x": 1696,
-      "y": 832,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "841a4e9d-48fd-506f-820d-3d91a68e2f4c",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "d85e271b-5d55-5903-aeab-dd6f06d87305",
-      "name": "Desk 7.3",
-      "visible": true,
-      "x": 1600,
-      "y": 896,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "a7f20f62-9be3-5512-8986-1e47acc705bd",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "d66e42a3-f983-5b93-ba4a-7bd9f83f8de4",
-      "name": "Desk 7.4",
-      "visible": true,
-      "x": 1696,
-      "y": 896,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "13a12eea-14d2-59d1-833a-c61347ab2aeb",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "5e41f13c-760f-5234-826d-a845286d646e",
-      "name": "Desk 8.1",
-      "visible": true,
-      "x": 1728,
-      "y": 832,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "c0a8d007-a7c4-55cc-96d7-48076442da2e",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "883ccb8f-d7c1-52b4-aba0-4b7ce4dd21e2",
-      "name": "Desk 8.2",
-      "visible": true,
-      "x": 1824,
-      "y": 832,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "437169d1-4037-50ca-a131-8a5f2dec4068",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "534d3b69-4588-5e3d-b34a-680fb8d4a063",
-      "name": "Desk 8.3",
-      "visible": true,
-      "x": 1728,
-      "y": 896,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "b8c152a7-4343-505b-a02e-184f11f32de4",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
-      "id": "21895318-2473-5546-b747-671f7d0c5463",
-      "name": "Desk 8.4",
-      "visible": true,
-      "x": 1824,
-      "y": 896,
-      "width": 32,
-      "height": 64,
-      "properties": [
-        {
-          "id": "a5a00b07-df75-529a-82a9-8770c1753259",
-          "type": "personalAreaPropertyData",
-          "accessClaimMode": "dynamic",
-          "allowedTags": [],
-          "ownerId": null
-        }
-      ]
-    },
-    {
       "id": "3763878d-c5ff-540a-9aae-17a4a6abf6e0",
       "name": "Game: Pool",
       "visible": true,
-      "x": 768,
-      "y": 672,
+      "x": 384,
+      "y": 512,
       "width": 320,
       "height": 224,
       "properties": [
@@ -987,8 +699,8 @@
       "id": "56ae3553-ed4a-5c53-af35-011494d570ac",
       "name": "Game: Chess",
       "visible": true,
-      "x": 1696,
-      "y": 1120,
+      "x": 992,
+      "y": 864,
       "width": 96,
       "height": 96,
       "properties": [
@@ -1008,8 +720,8 @@
       "id": "b895ccbe-0dc0-53a8-b851-7cf257135138",
       "name": "Game: Pictionary (skribbl.io)",
       "visible": true,
-      "x": 1696,
-      "y": 1248,
+      "x": 1248,
+      "y": 864,
       "width": 96,
       "height": 96,
       "properties": [
@@ -1029,8 +741,8 @@
       "id": "ef399483-f3cb-5bc6-8a34-214dc9f3efaf",
       "name": "Game: Codenames",
       "visible": true,
-      "x": 1568,
-      "y": 1344,
+      "x": 1248,
+      "y": 960,
       "width": 96,
       "height": 96,
       "properties": [
