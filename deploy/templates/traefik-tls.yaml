@@ -1,0 +1,7 @@
+# LAN mode only: Traefik serves our local-CA certificate when Let's Encrypt can't issue one.
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /certs/server.crt
+        keyFile: /certs/server.key

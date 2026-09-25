@@ -1,0 +1,13 @@
+# LiveKit (meeting areas and bubbles above MAX_PER_GROUP). Rendered to deploy/generated/livekit.yaml.
+# Based on upstream livekit-config.yaml: one TCP and one UDP port, so it works on the Docker bridge.
+port: 7880
+bind_addresses: ["0.0.0.0"]
+rtc:
+  tcp_port: 7881
+  udp_port: 7882
+  ${LIVEKIT_RTC_ADDRESS}
+keys:
+  ${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}
+logging:
+  json: false
+  level: warn

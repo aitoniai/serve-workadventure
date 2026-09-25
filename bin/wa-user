@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+# Manage WorkAdventure login accounts (Authelia's users database, generated from deploy/data/users.tsv).
+#   bin/wa-user add <email> [--name "Display Name"] [--editor]   (password read from the terminal or stdin)
+#   bin/wa-user passwd <email>
+#   bin/wa-user delete <email>
+#   bin/wa-user editor <email> on|off     allow/deny the in-browser map editor
+#   bin/wa-user list
+set -euo pipefail
+# shellcheck source=SCRIPTDIR/../scripts/lib.sh
+source "$(dirname "$0")/../scripts/lib.sh"
+[[ -f $ENV_FILE ]] || die "Run ./install.sh first."
+mkdir -p "$(dirname "$USERS_FILE")" && chmod 700 "$(dirname "$USERS_FILE")" && touch "$USERS_FILE"
+
+usage() { sed -n '2,8p' "$0" | sed 's/^# \{0,1\}//'; exit 1; }
+
+read_password() {
+  local pw pw2
+  if [[ -t 0 ]]; then
+    read -rsp "Password: " pw; echo >&2
+    read -rsp "Repeat password: " pw2; echo >&2
+    [[ $pw == "$pw2" ]] || die "Passwords don't match."
+  else
+    IFS= read -r pw
+  fi
+  (( ${#pw} >= 8 )) || die "Use at least 8 characters."
+  printf '%s' "$pw"
+}
+
+# bcrypt with the python bcrypt module shipped in the Synapse image (no extra download).
+bcrypt_hash() {
+  compose run --rm --no-deps -T --entrypoint python synapse \
+    -c 'import bcrypt,sys; print(bcrypt.hashpw(sys.stdin.buffer.read(), bcrypt.gensalt(10)).decode())' 2>/dev/null
+}
+
+user_exists() { cut -f1 "$USERS_FILE" | grep -qxF "$1"; }
+remove_user() { local tmp; tmp=$(mktemp); awk -F'\t' -v e="$1" '$1 != e' "$USERS_FILE" >"$tmp"; cat "$tmp" >"$USERS_FILE"; rm -f "$tmp"; }
+
+# Authelia watches users.yml and reloads it by itself.
+apply() { render_configs; }
+
+set_editor() {
+  local email=$1 on=$2 list
+  list=$(env_get MAP_EDITOR_ALLOWED_USERS | tr ',' '\n' | grep -vxF "$email" | grep -v '^$' || true)
+  [[ $on == on ]] && list=$(printf '%s\n%s' "$list" "$email" | grep -v '^$')
+  env_set MAP_EDITOR_ALLOWED_USERS "$(paste -sd, <<<"$list")"
+  if [[ -n $(compose ps -q play 2>/dev/null) ]]; then compose up -d play back >/dev/null 2>&1 && info "Editor list applied."; fi
+}
+
+cmd=${1:-}; shift || true
+case $cmd in
+  add)
+    email=${1:-}; shift || true
+    [[ $email == *@* ]] || usage
+    email=${email,,}
+    name=${email%@*}; editor=false
+    while (($#)); do
+      case $1 in
+        --name) name=$2; shift 2 ;;
+        --editor) editor=true; shift ;;
+        *) usage ;;
+      esac
+    done
+    name=${name//[$'"\t\\']/}
+    user_exists "$email" && die "$email already exists (use passwd to change the password)."
+    hash=$(read_password | bcrypt_hash) || die "Could not hash the password."
+    printf '%s\t%s\t%s\t%s\n' "$email" "$hash" "$name" "$(cat /proc/sys/kernel/random/uuid)" >>"$USERS_FILE"
+    info "Added $email."
+    $editor && set_editor "$email" on
+    apply
+    ;;
+  passwd)
+    email=${1,,}; user_exists "$email" || die "No such user: $email"
+    hash=$(read_password | bcrypt_hash) || die "Could not hash the password."
+    tmp=$(mktemp)
+    awk -F'\t' -v OFS='\t' -v e="$email" -v h="$hash" '$1 == e {$2 = h} {print}' "$USERS_FILE" >"$tmp"
+    cat "$tmp" >"$USERS_FILE"; rm -f "$tmp"
+    info "Password changed for $email."
+    apply
+    ;;
+  delete)
+    email=${1,,}; user_exists "$email" || die "No such user: $email"
+    remove_user "$email"
+    set_editor "$email" off
+    info "Deleted $email. (Their Matrix chat account stays; remove it with the Synapse admin API if needed.)"
+    apply
+    ;;
+  editor)
+    email=${1,,}; [[ ${2:-} == on || ${2:-} == off ]] || usage
+    set_editor "$email" "$2"
+    ;;
+  list)
+    editors=",$(env_get MAP_EDITOR_ALLOWED_USERS),"
+    while IFS=$'\t' read -r email _ name _; do
+      [[ -n $email ]] || continue
+      flag=""; [[ $editors == *",$email,"* ]] && flag=" (map editor)"
+      echo "$email  $name$flag"
+    done <"$USERS_FILE"
+    ;;
+  *) usage ;;
+esac

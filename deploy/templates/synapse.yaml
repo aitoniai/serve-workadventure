@@ -1,0 +1,78 @@
+# Synapse config for WorkAdventure chat. Rendered to deploy/generated/synapse.yaml by scripts/lib.sh.
+# Based on upstream synapse/homeserver.template.yaml and docs/others/self-hosting/matrix.md.
+server_name: "${DOMAIN}"
+public_baseurl: "https://${DOMAIN}/"
+pid_file: /data/homeserver.pid
+signing_key_path: /data/signing.key
+media_store_path: /data/media_store
+report_stats: false
+
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    bind_addresses: ["0.0.0.0"]
+    resources:
+      - names: [client]
+        compress: false
+
+# SQLite is plenty for a small team and keeps the Pi's memory free.
+database:
+  name: sqlite3
+  args:
+    database: /data/homeserver.db
+
+registration_shared_secret: "${SYNAPSE_REGISTRATION_SECRET}"
+macaroon_secret_key: "${SYNAPSE_MACAROON_SECRET}"
+form_secret: "${SYNAPSE_FORM_SECRET}"
+
+# Private server: no federation, no public key servers.
+federation_domain_whitelist: []
+trusted_key_servers: []
+suppress_key_server_warning: true
+allow_public_rooms_over_federation: false
+
+# Users log in through Authelia, the same OIDC provider as WorkAdventure, so one login covers both.
+# (Authelia's Synapse integration guide.) In LAN mode the container trusts deploy/certs/ca.crt.
+oidc_providers:
+  - idp_id: authelia
+    idp_name: WorkAdventure
+    discover: true
+    issuer: "https://${DOMAIN}/auth"
+    client_id: synapse
+    client_secret: "${AUTHELIA_SYNAPSE_CLIENT_SECRET}"
+    scopes: ["openid", "email", "profile"]
+    user_profile_method: userinfo_endpoint
+    user_mapping_provider:
+      config:
+        # Must match WorkAdventure's MatrixProvider.getBareMatrixIdFromEmail (email with "@" -> "_").
+        localpart_template: "{{ user.email | replace('@', '_') | lower }}"
+        display_name_template: "{{ user.name }}"
+        email_template: "{{ user.email }}"
+    allow_existing_users: true
+
+sso:
+  client_whitelist:
+    - "https://${DOMAIN}/"
+
+# Only the WorkAdventure admin bot uses a password (see install.sh); people use SSO.
+enable_registration: false
+password_config:
+  enabled: true
+
+enable_authenticated_media: false
+max_upload_size: 10M
+room_list_publication_rules:
+  - action: allow
+user_directory:
+  search_all_users: true
+
+# WorkAdventure's bot creates rooms and invites on behalf of users.
+rc_login:
+  address: {per_second: 0.15, burst_count: 10}
+  account: {per_second: 0.18, burst_count: 10}
+  failed_attempts: {per_second: 0.19, burst_count: 10}
+rc_room_creation:
+  per_second: 10
+  burst_count: 10000

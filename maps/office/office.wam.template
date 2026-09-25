@@ -1,0 +1,1065 @@
+{
+  "version": "2.1.0",
+  "mapUrl": "./office.tmj",
+  "entities": {},
+  "areas": [
+    {
+      "id": "ae8ef1f1-e752-5006-9cc5-8468ac21c3f9",
+      "name": "Meeting room 1",
+      "visible": true,
+      "x": 32,
+      "y": 96,
+      "width": 384,
+      "height": 384,
+      "properties": [
+        {
+          "id": "15aa9648-552a-5a5d-9deb-6bb58f1e4288",
+          "type": "areaDescriptionProperties",
+          "description": "Everyone inside joins one video call (LiveKit).",
+          "searchable": true
+        },
+        {
+          "id": "b83d57bd-e672-589e-a385-4e7c04e5b03b",
+          "type": "livekitRoomProperty",
+          "roomName": "meeting-room-1",
+          "livekitRoomConfig": {
+            "startWithAudioMuted": false,
+            "startWithVideoMuted": false
+          }
+        },
+        {
+          "id": "cf4ddda2-2f58-58cd-9708-4ef844e93591",
+          "type": "focusable",
+          "zoom_margin": 0.5
+        },
+        {
+          "id": "d33487b6-ccb7-5e90-b81e-2c4f85a2a4b4",
+          "type": "maxUsersInAreaPropertyData",
+          "maxUsers": 8
+        }
+      ]
+    },
+    {
+      "id": "ff407975-9cc1-5842-9770-dd2ffa525344",
+      "name": "meeting-room-1",
+      "visible": true,
+      "x": 192,
+      "y": 384,
+      "width": 64,
+      "height": 64,
+      "properties": [
+        {
+          "id": "d2f6a52d-e2f1-56a2-9f5e-8c504ba974b8",
+          "type": "start",
+          "isDefault": false
+        }
+      ]
+    },
+    {
+      "id": "2db75337-7e47-56e4-8e58-d66836899af7",
+      "name": "Meeting room 2",
+      "visible": true,
+      "x": 448,
+      "y": 96,
+      "width": 384,
+      "height": 384,
+      "properties": [
+        {
+          "id": "b6c817b7-f480-5a1d-ad92-293e1bb38b6c",
+          "type": "areaDescriptionProperties",
+          "description": "Everyone inside joins one video call (LiveKit).",
+          "searchable": true
+        },
+        {
+          "id": "d14d298f-bea1-5aa5-bbe9-f3b0c6eb76dd",
+          "type": "livekitRoomProperty",
+          "roomName": "meeting-room-2",
+          "livekitRoomConfig": {
+            "startWithAudioMuted": false,
+            "startWithVideoMuted": false
+          }
+        },
+        {
+          "id": "545a65ee-e788-5859-9625-821318ad99de",
+          "type": "focusable",
+          "zoom_margin": 0.5
+        },
+        {
+          "id": "4a5046f3-6103-52cf-b60b-d95b435e7ec0",
+          "type": "maxUsersInAreaPropertyData",
+          "maxUsers": 8
+        }
+      ]
+    },
+    {
+      "id": "bd7cea60-5fc9-51d5-a7bf-4336bf4eab56",
+      "name": "meeting-room-2",
+      "visible": true,
+      "x": 608,
+      "y": 384,
+      "width": 64,
+      "height": 64,
+      "properties": [
+        {
+          "id": "10df348c-14bc-5c3f-9af4-3989b86f28b5",
+          "type": "start",
+          "isDefault": false
+        }
+      ]
+    },
+    {
+      "id": "cd295ea5-8664-5521-8b1d-10f28581acf4",
+      "name": "Meeting room 3",
+      "visible": true,
+      "x": 864,
+      "y": 96,
+      "width": 384,
+      "height": 384,
+      "properties": [
+        {
+          "id": "f176e900-bcb2-56ce-9db1-0ffe9b47240c",
+          "type": "areaDescriptionProperties",
+          "description": "Everyone inside joins one video call (LiveKit).",
+          "searchable": true
+        },
+        {
+          "id": "65c5a4ce-e6ce-5059-b45e-9ecfdcaae51a",
+          "type": "livekitRoomProperty",
+          "roomName": "meeting-room-3",
+          "livekitRoomConfig": {
+            "startWithAudioMuted": false,
+            "startWithVideoMuted": false
+          }
+        },
+        {
+          "id": "e1febbeb-9b7b-5165-9932-1181fea243be",
+          "type": "focusable",
+          "zoom_margin": 0.5
+        },
+        {
+          "id": "83a1ce7a-befe-5010-944e-678d876d4b7d",
+          "type": "maxUsersInAreaPropertyData",
+          "maxUsers": 8
+        }
+      ]
+    },
+    {
+      "id": "5bd22eb9-992b-518d-9830-27dbab537d65",
+      "name": "meeting-room-3",
+      "visible": true,
+      "x": 1024,
+      "y": 384,
+      "width": 64,
+      "height": 64,
+      "properties": [
+        {
+          "id": "b41ca9bf-a46b-5be1-9c83-549420cf8b56",
+          "type": "start",
+          "isDefault": false
+        }
+      ]
+    },
+    {
+      "id": "a3155cac-c742-5ad6-a5f6-732d69c40966",
+      "name": "Reception",
+      "visible": true,
+      "x": 672,
+      "y": 1088,
+      "width": 608,
+      "height": 352,
+      "properties": [
+        {
+          "id": "305d1017-8dcf-5b69-a3cd-91738db0466a",
+          "type": "areaDescriptionProperties",
+          "description": "Welcome! Walk up to people to talk.",
+          "searchable": true
+        }
+      ]
+    },
+    {
+      "id": "85bf1df8-a0b2-5f25-8ed5-e44c7662f492",
+      "name": "Coffee corner",
+      "visible": true,
+      "x": 32,
+      "y": 1088,
+      "width": 608,
+      "height": 352,
+      "properties": [
+        {
+          "id": "921de01e-2dbb-5edb-bf39-dea32e926849",
+          "type": "areaDescriptionProperties",
+          "description": "Grab a coffee and chat.",
+          "searchable": true
+        },
+        {
+          "id": "7922569b-102d-5de8-88be-333146365bfd",
+          "type": "listenerMegaphone",
+          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
+          "chatEnabled": true
+        }
+      ]
+    },
+    {
+      "id": "badfa93f-e9d3-598a-a9a2-96bc6864789d",
+      "name": "Games area",
+      "visible": true,
+      "x": 1312,
+      "y": 1088,
+      "width": 576,
+      "height": 352,
+      "properties": [
+        {
+          "id": "b0705f48-bdb9-5236-81ac-392ef273ea88",
+          "type": "areaDescriptionProperties",
+          "description": "Walk to a table and press SPACE to start a game.",
+          "searchable": true
+        },
+        {
+          "id": "17aa9460-7037-5f68-99da-81dad142da96",
+          "type": "listenerMegaphone",
+          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
+          "chatEnabled": true
+        }
+      ]
+    },
+    {
+      "id": "e7e76589-6b8c-5c2a-bcd7-6f7fd16366a5",
+      "name": "Open office",
+      "visible": true,
+      "x": 32,
+      "y": 512,
+      "width": 1856,
+      "height": 480,
+      "properties": [
+        {
+          "id": "863ad7be-bdd3-5934-aae1-775256431e34",
+          "type": "areaDescriptionProperties",
+          "description": "Desks for everyone, a lounge corner and a pool table.",
+          "searchable": true
+        },
+        {
+          "id": "8a66a3e2-1e2e-50ae-a04d-47ecc8623ec5",
+          "type": "listenerMegaphone",
+          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
+          "chatEnabled": true
+        }
+      ]
+    },
+    {
+      "id": "7db93dfd-8ccd-542e-84f4-d6088ea73c21",
+      "name": "Team desks",
+      "visible": true,
+      "x": 1280,
+      "y": 96,
+      "width": 608,
+      "height": 416,
+      "properties": [
+        {
+          "id": "4ca4448d-ac86-50f4-aa4d-3268470c3bfc",
+          "type": "areaDescriptionProperties",
+          "description": "Team tables (quiet zone) and a reading corner.",
+          "searchable": true
+        },
+        {
+          "id": "51e836d5-c64a-517b-9784-b4edc59721f6",
+          "type": "listenerMegaphone",
+          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
+          "chatEnabled": true
+        }
+      ]
+    },
+    {
+      "id": "74acb0c4-38c6-5be8-8d80-5d413aac72e2",
+      "name": "Garden",
+      "visible": true,
+      "x": 1920,
+      "y": 0,
+      "width": 768,
+      "height": 1472,
+      "properties": [
+        {
+          "id": "61573a55-9c22-549b-93ee-be9fbb1a01e7",
+          "type": "areaDescriptionProperties",
+          "description": "Fresh air and birdsong: picnic tables, a flower meadow, the duck pond and a meditation garden.",
+          "searchable": true
+        },
+        {
+          "id": "81b9cb45-a43a-5baa-a29b-78bad219b1a8",
+          "type": "listenerMegaphone",
+          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
+          "chatEnabled": true
+        },
+        {
+          "id": "bb56467f-365c-5599-8acb-65663e35ddd3",
+          "type": "playAudio",
+          "audioLink": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/80/Birds_singing_in_garden.ogg/Birds_singing_in_garden.ogg.mp3",
+          "volume": 0.3
+        }
+      ]
+    },
+    {
+      "id": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
+      "name": "Stage",
+      "visible": true,
+      "x": 832,
+      "y": 1152,
+      "width": 224,
+      "height": 64,
+      "properties": [
+        {
+          "id": "7c1b8fde-6e48-5b5f-b8c6-ac4be43d0747",
+          "type": "areaDescriptionProperties",
+          "description": "All-hands stage: speak here and the whole office hears you.",
+          "searchable": true
+        },
+        {
+          "id": "e61e234e-06b2-5416-bbc2-2b4ba01fc166",
+          "type": "speakerMegaphone",
+          "name": "All-hands",
+          "chatEnabled": true,
+          "seeAttendees": true
+        },
+        {
+          "id": "bb93f7b8-ef57-51a2-a0ba-81804fd54b52",
+          "type": "highlight",
+          "opacity": 0.4,
+          "color": "#f5c542"
+        }
+      ]
+    },
+    {
+      "id": "6e1993c6-3807-5143-b80a-99cd11ecbc29",
+      "name": "Reception audience",
+      "visible": true,
+      "x": 672,
+      "y": 1216,
+      "width": 608,
+      "height": 224,
+      "properties": [
+        {
+          "id": "4b089034-0780-57ab-a087-6790f9232516",
+          "type": "listenerMegaphone",
+          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
+          "chatEnabled": true
+        }
+      ]
+    },
+    {
+      "id": "375ba97a-1da6-5011-99cc-cf9de9f09e9a",
+      "name": "Focus desks",
+      "visible": true,
+      "x": 1280,
+      "y": 96,
+      "width": 256,
+      "height": 416,
+      "properties": [
+        {
+          "id": "82df5ee6-1459-5b70-91f5-211a32fce715",
+          "type": "areaDescriptionProperties",
+          "description": "Quiet zone: no conversations, for heads-down work.",
+          "searchable": true
+        },
+        {
+          "id": "d3314da4-7619-593e-8e88-fff83aa7cc1d",
+          "type": "silent"
+        }
+      ]
+    },
+    {
+      "id": "96d0a460-c731-54ac-8486-3e3c7a490e01",
+      "name": "Meditation garden",
+      "visible": true,
+      "x": 2080,
+      "y": 1248,
+      "width": 384,
+      "height": 128,
+      "properties": [
+        {
+          "id": "fb4ef6b3-db63-5078-be36-735b734b5e4d",
+          "type": "areaDescriptionProperties",
+          "description": "Silent zone: sit by the lotus pool and breathe. No conversations here.",
+          "searchable": true
+        },
+        {
+          "id": "8df39d01-87ff-5714-8bef-776930823066",
+          "type": "silent"
+        }
+      ]
+    },
+    {
+      "id": "07860ecb-ffce-5c20-b8c9-d147ad854b3f",
+      "name": "Desk 1.1",
+      "visible": true,
+      "x": 96,
+      "y": 640,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "e09e0bec-4f3a-5537-8d71-2e9ca338a3ab",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "80259619-8fc3-563b-bae2-7eda681c1ffe",
+      "name": "Desk 1.2",
+      "visible": true,
+      "x": 192,
+      "y": 640,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "68fb0d5b-ad63-5a53-b4ab-3bc85eef13bf",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "5fd8fbf6-540d-5198-ac6a-4829a7b71e33",
+      "name": "Desk 1.3",
+      "visible": true,
+      "x": 96,
+      "y": 704,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "506ca6fe-93a8-5d18-8f48-59d7436d1c30",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "9f5bee73-f616-5695-a6cf-d66c8a205065",
+      "name": "Desk 1.4",
+      "visible": true,
+      "x": 192,
+      "y": 704,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "05f19cc4-a831-5000-829d-e31aaf9f4418",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "bfe3754c-9839-535f-8d5c-d04727f36560",
+      "name": "Desk 2.1",
+      "visible": true,
+      "x": 320,
+      "y": 640,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "5af088ee-7677-5c7b-bb2a-8963a22ec470",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "3e24a3f2-6f39-51aa-956d-c363a42e5614",
+      "name": "Desk 2.2",
+      "visible": true,
+      "x": 416,
+      "y": 640,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "7eb4d1e6-02e2-5a14-bf19-970471749bc2",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "84577a48-1688-5b2d-a6d7-dc16777de83f",
+      "name": "Desk 2.3",
+      "visible": true,
+      "x": 320,
+      "y": 704,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "4f246662-4f79-59e0-a9b4-09159a6adabd",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "9e843bbe-ef10-50e8-98e7-af5bd149b11b",
+      "name": "Desk 2.4",
+      "visible": true,
+      "x": 416,
+      "y": 704,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "31d003a1-a8c3-5080-a874-a0bdaf26b787",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "0d676c81-4051-527b-a637-e9ef96d50648",
+      "name": "Desk 3.1",
+      "visible": true,
+      "x": 96,
+      "y": 832,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "b8589e39-d712-5061-917c-93ded5859ca2",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "665ad56a-7aed-583e-8c52-ce8b98e16c43",
+      "name": "Desk 3.2",
+      "visible": true,
+      "x": 192,
+      "y": 832,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "d2947e94-cb1c-5213-a1af-800371684c2e",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "d3b83f4f-73be-586b-994c-1136aeaeb451",
+      "name": "Desk 3.3",
+      "visible": true,
+      "x": 96,
+      "y": 896,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "899d6596-733a-5354-ab19-4b5f8568cce5",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "c5fac6e2-ba33-53e6-8b0d-1f048b413425",
+      "name": "Desk 3.4",
+      "visible": true,
+      "x": 192,
+      "y": 896,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "94df0c7f-14bc-5880-a741-02445860e71d",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "4918de06-99c9-57d7-94c9-577660319dc3",
+      "name": "Desk 4.1",
+      "visible": true,
+      "x": 320,
+      "y": 832,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "53bf9893-0b70-5449-8257-6e657d26c7ef",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "d010c672-24ef-5591-9a9a-f67292b6b3d2",
+      "name": "Desk 4.2",
+      "visible": true,
+      "x": 416,
+      "y": 832,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "19c06568-5ec4-5ac9-af17-829f7a9ec473",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "613051c1-2359-53e2-9fc6-463f579edd3f",
+      "name": "Desk 4.3",
+      "visible": true,
+      "x": 320,
+      "y": 896,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "19a8cc3d-fa55-58b4-8706-5b4fdaebbd73",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "5d6c11c9-d160-5d5c-918a-0ec60cf9a3b7",
+      "name": "Desk 4.4",
+      "visible": true,
+      "x": 416,
+      "y": 896,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "2eae1a7f-43b5-57f1-a6e2-97be8dd7fc7d",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "fc65d90c-f8be-54f0-b52b-b23775aa0496",
+      "name": "Desk 5.1",
+      "visible": true,
+      "x": 1600,
+      "y": 640,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "79608b36-2400-5198-8409-a95c449bec25",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "d450a708-6462-5653-9331-179922b30f33",
+      "name": "Desk 5.2",
+      "visible": true,
+      "x": 1696,
+      "y": 640,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "3cd9ce4a-d461-50e0-96d8-39ccf386f9cb",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "6ca51e2e-4d49-55bb-91a6-e201b42a15fe",
+      "name": "Desk 5.3",
+      "visible": true,
+      "x": 1600,
+      "y": 704,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "982f762d-4a94-5737-a70e-7022572d0fc0",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "0eb2d504-ab5f-5a79-9e32-582a27de3cda",
+      "name": "Desk 5.4",
+      "visible": true,
+      "x": 1696,
+      "y": 704,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "3c273918-92c7-5fa6-ac72-685b628dbc54",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "9ecd3b5e-7f90-5bcb-876e-f43fea88d827",
+      "name": "Desk 6.1",
+      "visible": true,
+      "x": 1728,
+      "y": 640,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "398ecace-b8ce-5a8e-be57-1598fcccfdcc",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "85837fef-4328-5351-b021-807c0e52ae2e",
+      "name": "Desk 6.2",
+      "visible": true,
+      "x": 1824,
+      "y": 640,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "62037e0f-2400-5831-8b24-6a21e2945d64",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "61097a16-52e7-54ec-be79-d73997cf1b72",
+      "name": "Desk 6.3",
+      "visible": true,
+      "x": 1728,
+      "y": 704,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "f29a7198-2ab4-5c95-8268-9c145e08208d",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "8c85b4c4-875e-5cd0-ba98-4ad097ba2a31",
+      "name": "Desk 6.4",
+      "visible": true,
+      "x": 1824,
+      "y": 704,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "21c00569-28ba-5daa-8f8d-fccbde759265",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "b90125f5-cd55-5693-ba16-ef2c43756b8d",
+      "name": "Desk 7.1",
+      "visible": true,
+      "x": 1600,
+      "y": 832,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "43739503-3524-59cd-83a6-5660576c4907",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "f6d529e5-d14b-5812-8637-ddac3e370f02",
+      "name": "Desk 7.2",
+      "visible": true,
+      "x": 1696,
+      "y": 832,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "841a4e9d-48fd-506f-820d-3d91a68e2f4c",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "d85e271b-5d55-5903-aeab-dd6f06d87305",
+      "name": "Desk 7.3",
+      "visible": true,
+      "x": 1600,
+      "y": 896,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "a7f20f62-9be3-5512-8986-1e47acc705bd",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "d66e42a3-f983-5b93-ba4a-7bd9f83f8de4",
+      "name": "Desk 7.4",
+      "visible": true,
+      "x": 1696,
+      "y": 896,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "13a12eea-14d2-59d1-833a-c61347ab2aeb",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "5e41f13c-760f-5234-826d-a845286d646e",
+      "name": "Desk 8.1",
+      "visible": true,
+      "x": 1728,
+      "y": 832,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "c0a8d007-a7c4-55cc-96d7-48076442da2e",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "883ccb8f-d7c1-52b4-aba0-4b7ce4dd21e2",
+      "name": "Desk 8.2",
+      "visible": true,
+      "x": 1824,
+      "y": 832,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "437169d1-4037-50ca-a131-8a5f2dec4068",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "534d3b69-4588-5e3d-b34a-680fb8d4a063",
+      "name": "Desk 8.3",
+      "visible": true,
+      "x": 1728,
+      "y": 896,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "b8c152a7-4343-505b-a02e-184f11f32de4",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "21895318-2473-5546-b747-671f7d0c5463",
+      "name": "Desk 8.4",
+      "visible": true,
+      "x": 1824,
+      "y": 896,
+      "width": 32,
+      "height": 64,
+      "properties": [
+        {
+          "id": "a5a00b07-df75-529a-82a9-8770c1753259",
+          "type": "personalAreaPropertyData",
+          "accessClaimMode": "dynamic",
+          "allowedTags": [],
+          "ownerId": null
+        }
+      ]
+    },
+    {
+      "id": "3763878d-c5ff-540a-9aae-17a4a6abf6e0",
+      "name": "Game: Pool",
+      "visible": true,
+      "x": 768,
+      "y": 672,
+      "width": 320,
+      "height": 224,
+      "properties": [
+        {
+          "id": "a51b44d0-e6e0-568d-941b-2c3a34707259",
+          "type": "openWebsite",
+          "link": "https://foony.com/games/8-ball-pool-online-billiards",
+          "newTab": true,
+          "trigger": "onaction",
+          "triggerMessage": "Press SPACE to play 8-ball pool (Foony)",
+          "closable": true,
+          "application": "website"
+        }
+      ]
+    },
+    {
+      "id": "56ae3553-ed4a-5c53-af35-011494d570ac",
+      "name": "Game: Chess",
+      "visible": true,
+      "x": 1696,
+      "y": 1120,
+      "width": 96,
+      "height": 96,
+      "properties": [
+        {
+          "id": "fb91af5b-db2b-5e87-9102-067d01c11c91",
+          "type": "openWebsite",
+          "link": "https://lichess.org/",
+          "newTab": true,
+          "trigger": "onaction",
+          "triggerMessage": "Press SPACE to play Chess",
+          "closable": true,
+          "application": "website"
+        }
+      ]
+    },
+    {
+      "id": "b895ccbe-0dc0-53a8-b851-7cf257135138",
+      "name": "Game: Pictionary (skribbl.io)",
+      "visible": true,
+      "x": 1696,
+      "y": 1248,
+      "width": 96,
+      "height": 96,
+      "properties": [
+        {
+          "id": "652f8617-3f4b-5ce6-bb9c-6736c20980ba",
+          "type": "openWebsite",
+          "link": "https://skribbl.io/",
+          "newTab": true,
+          "trigger": "onaction",
+          "triggerMessage": "Press SPACE to play Pictionary (skribbl.io)",
+          "closable": true,
+          "application": "website"
+        }
+      ]
+    },
+    {
+      "id": "ef399483-f3cb-5bc6-8a34-214dc9f3efaf",
+      "name": "Game: Codenames",
+      "visible": true,
+      "x": 1568,
+      "y": 1344,
+      "width": 96,
+      "height": 96,
+      "properties": [
+        {
+          "id": "6da8fe61-6ba0-5ff3-943d-2000f8527355",
+          "type": "openWebsite",
+          "link": "https://codenames.game/",
+          "newTab": true,
+          "trigger": "onaction",
+          "triggerMessage": "Press SPACE to play Codenames",
+          "closable": true,
+          "application": "website"
+        }
+      ]
+    }
+  ],
+  "entityCollections": [
+    {
+      "url": "https://__DOMAIN__/collections/FurnitureCollection.json",
+      "type": "file"
+    },
+    {
+      "url": "https://__DOMAIN__/collections/OfficeCollection.json",
+      "type": "file"
+    }
+  ],
+  "metadata": {
+    "name": "Office",
+    "description": "Reception, coffee corner, games area, open office, three meeting rooms and a garden.",
+    "copyright": "Tiles: WorkAdventure map-starter-kit, CC-BY-SA 3.0"
+  }
+}

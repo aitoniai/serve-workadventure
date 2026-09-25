@@ -1,0 +1,84 @@
+# Authelia: the OpenID Connect provider for WorkAdventure and Synapse (single sign-on for both).
+# Rendered to deploy/generated/authelia/configuration.yml by scripts/lib.sh. Users live in
+# users.yml next to it, generated from deploy/data/users.tsv (manage them with bin/wa-user).
+# Client settings follow Authelia's Synapse integration guide.
+server:
+  address: "tcp://0.0.0.0:9091/auth"
+
+log:
+  level: warn
+
+theme: auto
+
+# The Pi may not have NTP reachable at boot; don't block startup on it.
+ntp:
+  disable_startup_check: true
+
+authentication_backend:
+  password_reset:
+    disable: true
+  file:
+    path: /config/users.yml
+    watch: true
+    search:
+      email: true
+
+access_control:
+  default_policy: one_factor
+
+identity_validation:
+  reset_password:
+    jwt_secret: "${AUTHELIA_JWT_SECRET}"
+
+session:
+  secret: "${AUTHELIA_SESSION_SECRET}"
+  cookies:
+    - domain: "${DOMAIN}"
+      authelia_url: "https://${DOMAIN}/auth"
+
+storage:
+  encryption_key: "${AUTHELIA_STORAGE_KEY}"
+  local:
+    path: /data/db.sqlite3
+
+# No mail server: one-time codes (e.g. for enrolling 2FA) are written to this file in the container.
+notifier:
+  filesystem:
+    filename: /data/notifications.txt
+
+identity_providers:
+  oidc:
+    hmac_secret: "${AUTHELIA_OIDC_HMAC_SECRET}"
+    jwks:
+      - key: |
+${AUTHELIA_OIDC_KEY}
+    clients:
+      - client_id: workadventure
+        client_name: WorkAdventure
+        client_secret: "${AUTHELIA_WA_CLIENT_DIGEST}"
+        public: false
+        authorization_policy: one_factor
+        consent_mode: implicit
+        redirect_uris:
+          - "https://${DOMAIN}/openid-callback"
+        scopes: [openid, email, profile]
+        response_types: [code]
+        grant_types: [authorization_code]
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic
+      - client_id: synapse
+        client_name: WorkAdventure chat
+        client_secret: "${AUTHELIA_SYNAPSE_CLIENT_DIGEST}"
+        public: false
+        authorization_policy: one_factor
+        consent_mode: implicit
+        require_pkce: false
+        pkce_challenge_method: ""
+        redirect_uris:
+          - "https://${DOMAIN}/_synapse/client/oidc/callback"
+        scopes: [openid, email, profile]
+        response_types: [code]
+        grant_types: [authorization_code]
+        access_token_signed_response_alg: none
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic

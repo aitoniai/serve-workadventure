@@ -1,0 +1,124 @@
+# Additions to the official WorkAdventure docker-compose.prod.yaml (downloaded to docker-compose.yaml by
+# install.sh and never edited). Compose merges this file on top of it.
+#
+# Adds the pieces the official file leaves to you (see contrib/docker/README.md upstream):
+#   authelia OpenID Connect provider (logins, map-editor permissions, single sign-on into the chat)
+#   synapse  Matrix homeserver for persistent chat
+#   livekit  SFU for meeting areas / bubbles bigger than MAX_PER_GROUP
+#   coturn   TURN relay for peer-to-peer video behind strict NATs
+# Everything is served on https://${DOMAIN} and routed by path, so a bare LAN IP works too.
+
+x-trust-public-url: &trust-public-url
+  # Node containers that call https://${DOMAIN} themselves (OIDC, LiveKit API, entity collections).
+  # In LAN mode NODE_EXTRA_CA_CERTS points at our local CA; with a real domain it is empty.
+  environment:
+    NODE_EXTRA_CA_CERTS: ${NODE_EXTRA_CA_CERTS:-}
+  volumes:
+    - ./certs:/certs:ro
+  extra_hosts:
+    # Reach the public name without relying on the router's hairpin NAT.
+    - "${DOMAIN}:host-gateway"
+
+services:
+  play: *trust-public-url
+  back: *trust-public-url
+  map-storage: *trust-public-url
+
+  authelia:
+    image: authelia/authelia:4.39.28
+    environment:
+      X_AUTHELIA_CONFIG: /config/configuration.yml
+    volumes:
+      - authelia-data:/data
+      - ./generated/authelia:/config:ro
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.authelia-ssl.rule: "Host(`${DOMAIN}`) && (Path(`/auth`) || PathPrefix(`/auth/`))"
+      traefik.http.routers.authelia-ssl.entryPoints: "websecure"
+      traefik.http.routers.authelia-ssl.service: "authelia"
+      traefik.http.routers.authelia-ssl.tls: "true"
+      traefik.http.routers.authelia-ssl.tls.certresolver: "myresolver"
+      traefik.http.services.authelia.loadbalancer.server.port: "9091"
+    restart: ${RESTART_POLICY}
+
+  synapse:
+    # Same version as upstream's docker-compose.yaml.
+    image: matrixdotorg/synapse:v1.140.0
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        [ -f /data/signing.key ] || generate_signing_key -o /data/signing.key
+        chown -R 991:991 /data
+        # LAN mode: trust our local CA when talking to https://$${DOMAIN}/auth (OpenSSL honours SSL_CERT_FILE).
+        if [ -f /certs/ca.crt ]; then
+          cat /etc/ssl/certs/ca-certificates.crt /certs/ca.crt > /tmp/ca-bundle.crt
+          export SSL_CERT_FILE=/tmp/ca-bundle.crt
+        fi
+        exec /start.py
+    environment:
+      SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
+    volumes:
+      - synapse-data:/data
+      - ./generated/synapse.yaml:/config/homeserver.yaml:ro
+      - ./certs:/certs:ro
+    extra_hosts:
+      - "${DOMAIN}:host-gateway"
+    depends_on:
+      - authelia
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.matrix-ssl.rule: "Host(`${DOMAIN}`) && (PathPrefix(`/_matrix`) || PathPrefix(`/_synapse/client`))"
+      traefik.http.routers.matrix-ssl.entryPoints: "websecure"
+      traefik.http.routers.matrix-ssl.service: "matrix"
+      traefik.http.routers.matrix-ssl.tls: "true"
+      traefik.http.routers.matrix-ssl.tls.certresolver: "myresolver"
+      traefik.http.services.matrix.loadbalancer.server.port: "8008"
+    restart: ${RESTART_POLICY}
+
+  livekit:
+    # Same version as upstream's docker-compose.livekit.yaml.
+    image: livekit/livekit-server:v1.10.1
+    command: ["--config", "/etc/livekit.yaml"]
+    ports:
+      - "7881:7881/tcp"
+      - "7882:7882/udp"
+    volumes:
+      - ./generated/livekit.yaml:/etc/livekit.yaml:ro
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.strip-livekit-prefix.stripprefix.prefixes: "/livekit"
+      traefik.http.routers.livekit-ssl.rule: "Host(`${DOMAIN}`) && PathPrefix(`/livekit`)"
+      traefik.http.routers.livekit-ssl.middlewares: "strip-livekit-prefix@docker"
+      traefik.http.routers.livekit-ssl.entryPoints: "websecure"
+      traefik.http.routers.livekit-ssl.service: "livekit"
+      traefik.http.routers.livekit-ssl.tls: "true"
+      traefik.http.routers.livekit-ssl.tls.certresolver: "myresolver"
+      traefik.http.services.livekit.loadbalancer.server.port: "7880"
+    restart: ${RESTART_POLICY}
+
+  coturn:
+    image: coturn/coturn:4.7
+    # Host networking avoids publishing the relay port range through docker-proxy.
+    network_mode: host
+    command:
+      - -n
+      - --listening-port=3478
+      - --min-port=49160
+      - --max-port=49200
+      - --use-auth-secret
+      - --static-auth-secret=${TURN_STATIC_AUTH_SECRET}
+      - --realm=${DOMAIN}
+      - --external-ip=${TURN_EXTERNAL_IP}
+      - --no-cli
+      - --no-tls
+      - --no-dtls
+      - --no-multicast-peers
+      - --denied-peer-ip=0.0.0.0-0.255.255.255
+      - --denied-peer-ip=127.0.0.0-127.255.255.255
+      - --log-file=stdout
+    restart: ${RESTART_POLICY}
+
+volumes:
+  authelia-data:
+  synapse-data:
