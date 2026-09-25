@@ -556,16 +556,16 @@ def wam():
                        ("Garden", "Fresh air and birdsong: picnic tables, a flower meadow, the duck pond and a meditation garden.")):
         (x1, y1, x2, y2), _ = ROOMS[name]
         top = y1 + 2 if name not in ("Open office", "Garden") else y1   # skip the wall face rows
+        # No megaphone listening here: a listener area shows "waiting for a speaker" and replaces
+        # proximity bubbles, so only the small audience area in front of the stage listens.
         props = [describe(name, text)]
-        if name != "Reception":                 # reception listens from its own audience area, off the stage
-            props.append(listen(name))
         if name == "Garden":
             props.append({"id": pid(name, "audio"), "type": "playAudio", "audioLink": BIRDSONG, "volume": 0.3})
         areas.append(area(name, x1, top, x2, y2, props))
 
-    # All-hands megaphone: speak from the stage, everyone in the listening areas hears you.
+    # All-hands megaphone: speak from the stage, everyone in the reception audience hears you.
     areas.append(area("Stage", *STAGE, [
-        describe("Stage", "All-hands stage: speak here and the whole office hears you."),
+        describe("Stage", "All-hands stage: speak here and everyone in the reception audience hears you."),
         {"id": pid("Stage", "speaker"), "type": "speakerMegaphone", "name": "All-hands", "chatEnabled": True,
          "seeAttendees": True},
         {"id": pid("Stage", "highlight"), "type": "highlight", "opacity": 0.4, "color": "#f5c542"},

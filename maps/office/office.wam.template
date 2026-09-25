@@ -190,12 +190,6 @@
           "type": "areaDescriptionProperties",
           "description": "Grab a coffee and chat.",
           "searchable": true
-        },
-        {
-          "id": "7922569b-102d-5de8-88be-333146365bfd",
-          "type": "listenerMegaphone",
-          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
-          "chatEnabled": true
         }
       ]
     },
@@ -213,12 +207,6 @@
           "type": "areaDescriptionProperties",
           "description": "Walk to a table and press SPACE to start a game.",
           "searchable": true
-        },
-        {
-          "id": "17aa9460-7037-5f68-99da-81dad142da96",
-          "type": "listenerMegaphone",
-          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
-          "chatEnabled": true
         }
       ]
     },
@@ -236,12 +224,6 @@
           "type": "areaDescriptionProperties",
           "description": "Desks for everyone, a lounge corner and a pool table.",
           "searchable": true
-        },
-        {
-          "id": "8a66a3e2-1e2e-50ae-a04d-47ecc8623ec5",
-          "type": "listenerMegaphone",
-          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
-          "chatEnabled": true
         }
       ]
     },
@@ -259,12 +241,6 @@
           "type": "areaDescriptionProperties",
           "description": "Team tables (quiet zone) and a reading corner.",
           "searchable": true
-        },
-        {
-          "id": "51e836d5-c64a-517b-9784-b4edc59721f6",
-          "type": "listenerMegaphone",
-          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
-          "chatEnabled": true
         }
       ]
     },
@@ -282,12 +258,6 @@
           "type": "areaDescriptionProperties",
           "description": "Fresh air and birdsong: picnic tables, a flower meadow, the duck pond and a meditation garden.",
           "searchable": true
-        },
-        {
-          "id": "81b9cb45-a43a-5baa-a29b-78bad219b1a8",
-          "type": "listenerMegaphone",
-          "speakerZoneName": "eb0f5d12-6b45-50be-9f23-93cca4ba8adc",
-          "chatEnabled": true
         },
         {
           "id": "bb56467f-365c-5599-8acb-65663e35ddd3",
@@ -309,7 +279,7 @@
         {
           "id": "7c1b8fde-6e48-5b5f-b8c6-ac4be43d0747",
           "type": "areaDescriptionProperties",
-          "description": "All-hands stage: speak here and the whole office hears you.",
+          "description": "All-hands stage: speak here and everyone in the reception audience hears you.",
           "searchable": true
         },
         {

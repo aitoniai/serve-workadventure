@@ -89,7 +89,7 @@ pool table drawn by `generate.py`).
 
 | Area | What's there |
 |---|---|
-| Reception (start) | WorkAdventure logo, reception desk, lounge sofas, plants and art. The **Stage** in front of the desk is an all-hands megaphone: whoever speaks there is heard in reception, the open office, team desks, coffee corner, games area and garden. |
+| Reception (start) | WorkAdventure logo, reception desk, lounge sofas, plants and art. The **Stage** in front of the desk is an all-hands megaphone: whoever speaks there is heard by everyone standing in the reception rows in front of it. (Only that audience listens: in a listening area WorkAdventure replaces proximity video with "waiting for a speaker".) |
 | Coffee corner | Kitchen counter, coffee machines, three café tables with flowers |
 | Games area | Big screen with poufs, sofa, board-game table, and three game tables: walk up and press SPACE to open **Chess** (lichess.org), **Pictionary** (skribbl.io) or **Codenames** in a new tab. These are free sites; send colleagues the game link to play together. |
 | Open office | 4 desk pods (16 desks, each a claimable personal desk), a lounge corner, and a **pool table**: press SPACE next to it to open 8-ball pool (foony.com, free, no account; "Play with Friends" gives an invite link). |
