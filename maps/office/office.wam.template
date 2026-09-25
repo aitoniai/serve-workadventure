@@ -288,12 +288,6 @@
           "name": "All-hands",
           "chatEnabled": true,
           "seeAttendees": true
-        },
-        {
-          "id": "bb93f7b8-ef57-51a2-a0ba-81804fd54b52",
-          "type": "highlight",
-          "opacity": 0.4,
-          "color": "#f5c542"
         }
       ]
     },

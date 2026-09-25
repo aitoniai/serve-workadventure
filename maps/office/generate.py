@@ -629,7 +629,6 @@ def wam():
         describe("Stage", "All-hands stage: speak here and everyone in the reception audience hears you."),
         {"id": pid("Stage", "speaker"), "type": "speakerMegaphone", "name": "All-hands", "chatEnabled": True,
          "seeAttendees": True},
-        {"id": pid("Stage", "highlight"), "type": "highlight", "opacity": 0.4, "color": "#f5c542"},
     ]))
     (rx1, _, rx2, ry2), _ = ROOMS["Reception"]
     areas.append(area("Reception audience", rx1, STAGE[3] + 1, rx2, ry2, [listen("Reception audience")]))
