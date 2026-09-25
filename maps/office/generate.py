@@ -171,6 +171,15 @@ class Map:
                 "imageheight": POOL_ROWS * 32, "imagewidth": POOL_COLS * 32, "margin": 0, "name": "Custom_Pool_Table",
                 "spacing": 0, "tilecount": POOL_COLS * POOL_ROWS, "tileheight": 32, "tilewidth": 32}
 
+    def game_firstgid(self):
+        return self.pool_firstgid() + POOL_COLS * POOL_ROWS
+
+    def game_tileset(self):
+        n = len(GAMES)
+        return {"columns": n, "firstgid": self.game_firstgid(), "image": GAME_TILESET,
+                "imageheight": 32, "imagewidth": n * 32, "margin": 0, "name": "Custom_Game_Tables",
+                "spacing": 0, "tilecount": n, "tileheight": 32, "tilewidth": 32}
+
     def tmj(self):
         def tl(name, i):
             return {"data": self.layers[name], "height": H, "width": W, "id": i, "name": name, "opacity": 1,
@@ -191,7 +200,7 @@ class Map:
             "compressionlevel": -1, "height": H, "width": W, "infinite": False, "orientation": "orthogonal",
             "renderorder": "right-down", "tiledversion": self.src.get("tiledversion", "1.10.2"), "tileheight": 32,
             "tilewidth": 32, "type": "map", "version": self.src.get("version", "1.10"), "nextlayerid": 100,
-            "nextobjectid": 1, "layers": layers, "tilesets": self.src["tilesets"] + [self.pool_tileset()],
+            "nextobjectid": 1, "layers": layers, "tilesets": self.src["tilesets"] + [self.pool_tileset(), self.game_tileset()],
             "properties": [
                 {"name": "mapName", "type": "string", "value": "Office"},
                 {"name": "mapDescription", "type": "string",
@@ -237,6 +246,58 @@ def draw_pool_table(path):
             i += 1
     d.line((8, 52, 30, 42), fill=(214, 170, 110), width=2)                 # cue
     d.line((8, 52, 14, 49), fill=ink, width=2)
+    img.save(path)
+
+
+# ── Game tables: one 32x32 table per entry of GAMES, with that game on its top, so you can see what each plays ──
+GAME_TILESET = "tilesets/Custom_Game_Tables.png"
+
+
+def draw_game_tables(path):
+    from PIL import Image, ImageDraw
+    img = Image.new("RGBA", (len(GAMES) * 32, 32), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    ink, wood, wood_hi, wood_dk = (46, 26, 14), (122, 72, 36), (160, 102, 54), (86, 48, 22)
+    for i in range(len(GAMES)):                                            # the same wooden table under each game
+        o = i * 32
+        d.ellipse((o + 3, 27, o + 28, 31), fill=(0, 0, 0, 60))              # shadow
+        for lx in (4, 25):                                                 # legs
+            d.rectangle((o + lx, 23, o + lx + 2, 30), fill=wood_dk, outline=ink)
+        d.rectangle((o + 1, 21, o + 30, 25), fill=wood_dk, outline=ink)     # front edge
+        d.rounded_rectangle((o + 1, 1, o + 30, 22), radius=3, fill=wood, outline=ink)
+        d.line((o + 4, 2, o + 27, 2), fill=wood_hi)
+
+    # Chess: 8x8 board with a white and a black king.
+    o = 0
+    d.rectangle((o + 6, 2, o + 25, 21), fill=(64, 40, 22), outline=ink)
+    for r in range(8):
+        for c in range(8):
+            colour = (238, 220, 180) if (r + c) % 2 == 0 else (150, 100, 60)
+            d.rectangle((o + 8 + c * 2, 4 + r * 2, o + 9 + c * 2, 5 + r * 2), fill=colour)
+    for kx, body, edge in ((11, (250, 250, 245), ink), (19, (30, 30, 30), (200, 200, 200))):
+        d.rectangle((o + kx, 12, o + kx + 2, 17), fill=body, outline=edge)   # king
+        d.line((o + kx + 1, 9, o + kx + 1, 11), fill=edge)                   # cross
+        d.line((o + kx, 10, o + kx + 2, 10), fill=edge)
+
+    # Pictionary: a sketch of a house under the sun, and a pencil.
+    o = 32
+    d.rectangle((o + 4, 3, o + 23, 20), fill=(250, 250, 245), outline=(120, 120, 120))
+    d.ellipse((o + 17, 5, o + 21, 9), fill=(250, 200, 40), outline=(220, 150, 20))
+    d.rectangle((o + 8, 12, o + 15, 18), outline=(40, 80, 200))           # house
+    d.polygon([(o + 7, 12), (o + 11, 7), (o + 16, 12)], outline=(210, 40, 40))
+    d.rectangle((o + 11, 15, o + 12, 18), fill=(40, 80, 200))             # door
+    d.line((o + 25, 19, o + 28, 5), fill=(240, 190, 40), width=2)          # pencil
+    d.line((o + 28, 5, o + 28, 3), fill=(240, 140, 160), width=2)
+    d.point((o + 25, 20), fill=ink)
+
+    # Codenames: a 5x4 grid of red, blue, beige and one black agent card.
+    o = 64
+    cards = ["RBNRB", "NRKBN", "BNRRB", "RBNBR"]
+    tones = {"R": (210, 50, 40), "B": (40, 90, 200), "N": (230, 210, 170), "K": (25, 25, 25)}
+    for r, row in enumerate(cards):
+        for c, k in enumerate(row):
+            x, y = o + 4 + c * 5, 3 + r * 5
+            d.rectangle((x, y, x + 3, y + 3), fill=tones[k], outline=ink)
     img.save(path)
 
 
@@ -395,7 +456,7 @@ def layout(m):
     m.put(TABLE_BIG, 31, 30)
     m.put(STOOLS[0], 30, 31, collide="none"); m.put(STOOLS[1], 34, 31, collide="none")
     for i, (x, y) in enumerate(GAME_TABLES):
-        m.put(TABLE_ROUND_BLACK, x, y)
+        m.put([[m.game_firstgid() + i]], x, y)                            # a table showing its game (GAMES[i])
         m.put(STOOLS[i % 4], x - 1, y, collide="none")
         m.put(STOOLS[(i + 1) % 4], x + 1, y, collide="none")
     m.put(BALLOONS, 42, 25, collide="none"); m.put(BALLOONS, 30, 25, collide="none")
@@ -627,6 +688,7 @@ def main():
             subprocess.run(["git", "clone", "-q", "--depth", "1", "--branch", STARTER_KIT_TAG, STARTER_KIT_REPO, starter], check=True)
     os.makedirs(os.path.join(HERE, "tilesets"), exist_ok=True)
     draw_pool_table(os.path.join(HERE, POOL_TILESET))    # lives next to the map; upload-map.sh adds it to the kit
+    draw_game_tables(os.path.join(HERE, GAME_TILESET))
     m = Map(starter)
     layout(m)
     with open(os.path.join(HERE, "office.tmj"), "w") as f: json.dump(m.tmj(), f)

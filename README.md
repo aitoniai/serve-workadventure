@@ -83,7 +83,7 @@ confirms that kind of request with a consent click. The chat then signs in autom
 ### Maps
 
 The start room is `maps/office`: a 60×34 office with a garden, built from the official starter kit's art (plus a
-pool table drawn by `generate.py`).
+pool table and game tables drawn by `generate.py`).
 
 ![Office map](maps/office/preview.png)
 
@@ -91,7 +91,7 @@ pool table drawn by `generate.py`).
 |---|---|
 | Reception (start) | WorkAdventure logo, reception desk, lounge sofas, plants and art. The **Stage** in front of the desk is an all-hands megaphone: whoever speaks there is heard by everyone standing in the reception rows in front of it. (Only that audience listens: in a listening area WorkAdventure replaces proximity video with "waiting for a speaker".) |
 | Coffee corner | Kitchen counter, coffee machines, three café tables with flowers |
-| Games area | Big screen with poufs, sofa, board-game table, and three game tables: walk up and press SPACE to open **Chess** (lichess.org), **Pictionary** (skribbl.io) or **Codenames** in a new tab. These are free sites; send colleagues the game link to play together. |
+| Games area | Big screen with poufs, sofa, board-game table, and three game tables, each showing its game (a chessboard, a sketch, a card grid): walk up and press SPACE to open **Chess** (lichess.org), **Pictionary** (skribbl.io) or **Codenames** in a new tab. These are free sites; send colleagues the game link to play together. |
 | Open office | 4 desk pods (16 desks, each a claimable personal desk), a lounge corner, and a **pool table**: press SPACE next to it to open 8-ball pool (foony.com, free, no account; "Play with Friends" gives an invite link). |
 | Team desks | a long desk (6 desks) in a **silent zone** ("Focus desks"), and a reading corner with bookshelves |
 | Meeting rooms 1–3 | Glass table for 8 and a whiteboard, max 8 people. Everyone inside joins one video call (LiveKit). Share a link straight into a room: `https://<domain>/~/office/office.wam#meeting-room-2` |
@@ -99,7 +99,7 @@ pool table drawn by `generate.py`).
 
 To change the layout, edit `ROOMS`, `H_WALLS`/`V_WALLS`, `DOORS` and `layout()` in `maps/office/generate.py` and run
 `python3 maps/office/generate.py --preview maps/office/preview.png` (needs Python 3 with Pillow for the preview), then
-`scripts/upload-map.sh`. Extra tileset images in `maps/office/tilesets/` (the pool table) are added to the starter
+`scripts/upload-map.sh`. Extra tileset images in `maps/office/tilesets/` (the pool and game tables) are added to the starter
 kit during the build. The areas (meeting rooms, game links, megaphone, silent zones, desks) are in
 `office.wam.template`. They're uploaded only the first time, so later uploads never overwrite changes made with the
 in-browser editor. To replace the areas on the server with the template, run `scripts/upload-map.sh --reset-areas`
